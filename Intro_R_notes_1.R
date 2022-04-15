@@ -6,7 +6,7 @@ install.packages('tidyverse')
 
 # Loading packages
 library(tidyverse)
-library(ggthemes)
+#library(ggthemes)
 
 # What is loaded  - Good to run at the end
 sessionInfo() 

@@ -10,12 +10,12 @@ library(ComplexHeatmap)
 
 # Import design data
 design <- read_csv('~/proj/teaching/GNET749_S21/data/sample_sheet.csv') 
-design$path <- file.path('/Users/jraab/proj/teaching/GNET749_S21/data/raw/salmon', paste0(design$Sample, '_decoy_quant'), 'quant.sf')
+design$path <- file.path('/Users/jraab/proj/teaching/GNET749_S22/data/salmon', paste0(design$Sample, '_decoy_quant'), 'quant.sf')
 design 
 # Setup mart  - must be connected to internet for this step
 mart <- useMart(biomart = 'ensembl', dataset = 'hsapiens_gene_ensembl'  )
 mart_res <- getBM(attributes = c('ensembl_transcript_id', 'external_gene_name'), mart = mart)
-write_csv(mart_res, file = '~/Desktop/mmusculus_ensembl.csv') 
+#write_csv(mart_res, file = '~/Desktop/mmusculus_ensembl.csv') 
 # You can save this mart_res object as a csv file and reload it as below if you expect to need this mapping when not on the internet
 #write_csv(mart_res, '~/proj/teaching/GNET749_S21/data/hsapiens_mart.csv')
 #mart_res <- read_csv('~/proj/teaching/GNET749_S21/data/hsapiens_mart.csv')
