@@ -1,5 +1,4 @@
 samples,treatment,genotype,rep
-rowname,rowname,NA,NA
 DMSO_NTG_1,DMSO,NTG,1
 DMSO_NTG_3,DMSO,NTG,3
 DMSO_MCRS1_1,DMSO,MCRS1,1
