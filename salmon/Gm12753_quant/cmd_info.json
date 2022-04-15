@@ -1,0 +1,11 @@
+{
+    "salmon_version": "1.4.0",
+    "index": "/proj/seq/data/salmon_RNAseq_genomes/hg38_cdna/salmon_index/default",
+    "libType": "A",
+    "mates1": "../full/Gm12753_R1.fastq.gz",
+    "mates2": "../full/Gm12753_R2.fastq.gz",
+    "threads": "8",
+    "validateMappings": [],
+    "output": "Gm12753_quant",
+    "auxDir": "aux_info"
+}

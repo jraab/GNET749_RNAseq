@@ -1,0 +1,11 @@
+{
+    "salmon_version": "1.4.0",
+    "index": "/proj/seq/data/salmon_RNAseq_genomes/hg38/salmon_sa_index/default",
+    "libType": "A",
+    "mates1": "../full/Gm12818_R1.fastq.gz",
+    "mates2": "../full/Gm12818_R2.fastq.gz",
+    "threads": "8",
+    "validateMappings": [],
+    "output": "Gm12818_decoy_quant",
+    "auxDir": "aux_info"
+}

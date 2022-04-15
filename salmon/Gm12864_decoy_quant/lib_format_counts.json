@@ -1,0 +1,22 @@
+{
+    "read_files": "[ ../full/Gm12864_R1.fastq.gz, ../full/Gm12864_R2.fastq.gz]",
+    "expected_format": "ISR",
+    "compatible_fragment_ratio": 1.0,
+    "num_compatible_fragments": 6129807,
+    "num_assigned_fragments": 6129807,
+    "num_frags_with_concordant_consistent_mappings": 5269250,
+    "num_frags_with_inconsistent_or_orphan_mappings": 869580,
+    "strand_mapping_bias": 0.00002618899955744386,
+    "MSF": 0,
+    "OSF": 0,
+    "ISF": 138,
+    "MSR": 0,
+    "OSR": 0,
+    "ISR": 5269250,
+    "SF": 277694,
+    "SR": 591748,
+    "MU": 0,
+    "OU": 0,
+    "IU": 0,
+    "U": 0
+}

@@ -1,0 +1,28 @@
+Using salmon to do quasi-mapping of the samples (full dataset)
+
+
+$ module list
+
+Currently Loaded Modules:
+  1) salmon/1.4.0
+
+Using indexes downloaded from http://refgenomes.databio.org/
+
+
+Part 1: Using the decoy containing full dataset
+
+ 1419  for i in `ls -1 ../*R1*`; do name=$(basename ${i} _R1.fastq.gz); dname=$(dirname ${i}); echo ${dname}; echo ${name}; sbatch -p barc -t 1-0 -n 8 -N 1 --mem=30g -o ${name}_%J_decoy_salmon.out --wrap="salmon quant -i /proj/seq/data/salmon_RNAseq_genomes/hg38_decoy/salmon_sa_index/default -l A -1 ${dname}/${name}_R1.fastq.gz -2 ${dname}/${name}_R2.fastq.gz -p 8 --validateMappings -o ${name}_decoy_quant"; done
+
+Memory needs ~20G and about 3-4 min per sample with 8 cores
+
+
+Part II: With just the transcriptome
+
+
+ 1430  for i in `ls -1 ../*R1*`; do name=$(basename ${i} _R1.fastq.gz); dname=$(dirname ${i}); echo ${dname}; echo ${name}; sbatch -p barc -t 1-0 -n 8 -N 1 --mem=30g -o ${name}_%J_salmon.out --wrap="salmon quant -i /proj/seq/data/salmon_RNAseq_genomes/hg38_cdna/salmon_index/default -l A -1 ${dname}/${name}_R1.fastq.gz -2 ${dname}/${name}_R2.fastq.gz -p 8 --validateMappings -o ${name}_quant"; done
+
+
+Memory needs ~2 G and about 2-3 miin per sample with 8 cores
+
+HK
+03/10/2021
