@@ -13,3 +13,13 @@ Week 1 - Basic R introduction
 Week 2 - Differential expression and QC using DESeq2
 
 Week 3 - Batch effects and Gene Set Enrichment
+
+
+
+**Additional Resources**
+
+This course makes use of several excxellent tutorials, refer to these sources for more information or reference
+
+R for Data Science - https://r4ds.had.co.nz/
+
+DESeq2 vignette https://bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html
