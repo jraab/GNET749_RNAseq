@@ -45,7 +45,6 @@ dds <- DESeqDataSetFromTximport(txi , colData = design, design = ~ Group)
 des <- DESeq(dds) # This runs all the DESeq steps
 res <- results(des) # this returns a DESeq results object
 summary(res)
-res_df <- as.data.frame(res) %>% rownames_to_column() %>% as_tibble()
 
 ################################################################################
 # At this point you have a data frame with all your results - you can simply filter
