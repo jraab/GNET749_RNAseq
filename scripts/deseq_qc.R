@@ -39,8 +39,6 @@ all_counts %>%
    coord_flip() + 
    facet_wrap(~method)
    
-
-
 ################################################################################
 # Look at distribution before and after normalization
 all_counts %>% 

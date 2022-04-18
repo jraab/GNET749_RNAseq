@@ -13,6 +13,7 @@ library(biomaRt) # for mapping transcript IDs to genes
 
 # Import design data
 design <- read_csv('/Users/jraab/GitHub/GNET749_RNAseq/data/class_data_info.csv') 
+design
 # This line creates a new column to keep track of where each Salmon output file is
 # file.path makes sticks the arguments together with / between them to make path names
 design$path <- file.path('/Users/jraab/GitHub/GNET749_RNAseq/data/salmon', paste0(design$Sample, '_decoy_quant'), 'quant.sf')
@@ -37,7 +38,7 @@ txi
 # The next line creates a summarizedExperiment object that can be usd for
 #     differential testing
 dds <- DESeqDataSetFromTximport(txi , colData = design, design = ~ Group) 
-
+dds
 #################################################################################
 # This is how we run the actual differential test with defaults 
 # is very easy if you have a simple experimental design and analysis approach
@@ -53,5 +54,7 @@ summary(res)
 
 # We are going to save our deseq results object so we can use it for additional QC/Visualization
 save(des, res , file = 'data/DE_output.Rda')
-
+res_df <- as.data.frame(res) %>% rownames_to_column()
+res_df
+write_tsv(res_df, 'class_data_results.tsv')
 
