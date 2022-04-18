@@ -1,4 +1,30 @@
 # Visualizing DESeq Results
+library(tidyverse)
+library(DESeq2)
+# Load our data from DESeq analysis
+load(file = 'data/DE_output.Rda')
+# Has two variables (des, res) 
+
+# Investigate the output
+resultsNames(des)
+summary(res) # this shows 28 genes go up and ~15 go down 
+#at an adjusted  p-value of 0.1
+ 
+# MA Plot 
+plotMA(res, ylim = c(-5,5))
+
+#(notice the high lfc in the lower expression)
+# This is likely a poor estimate of the true fold chnage ( low expression with inflated lfc)
+# Need to specify which coefficient from our linear model to shrink
+
+shrunk <- lfcShrink(des, coef = 2, type = 'apeglm') 
+plotMA(shrunk, ylim = c(-5,5))
+
+shrunk <- lfcShrink(des, coef = 2, type = 'normal') 
+plotMA(shrunk, ylim = c(-5,5))
+
+shrunk <- lfcShrink(des, coef = 2, type = 'ashr') 
+plotMA(shrunk, ylim = c(-5,5))
 
 # Other data analysis and additional topics
 # This is an important plot to look at. 
@@ -6,9 +32,8 @@
 hist(res_df[res_df$baseMean > 1, ]$pvalue) 
 # This histogram shows a bit of an enrichment of smaller p-values, this is good and
 # is what you expect if some genes do not fit our null hypothesis and actually differ between groups
-summary(res) # this shows 281 genes go up and ~15 go down at an adjusted  p-value of 0.1
 
-plotMA(res)
+
 # Lots of low count genes with high fold changes, lets shrink the lfc
 resultsNames(des)
 # we need to konw which coefficient of our linear model we want to shrink

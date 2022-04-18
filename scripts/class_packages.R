@@ -1,6 +1,6 @@
 # Packages needed for this week
 
-cran_packages <- c('tidyverse', 'nycflights13', 'BiocManager')
+cran_packages <- c('tidyverse', 'nycflights13', 'BiocManager', 'apeglm', 'ashr')
 biocon_packages <- c('DESeq2', 'sva', 'ComplexHeatmap', 
                      'tximport', 'biomaRt', 'limma', 'pasilla')
 
