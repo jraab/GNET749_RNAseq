@@ -4,9 +4,8 @@ library(tidyverse)
 library(DESeq2)
 library(ComplexHeatmap)
 
-# Lets load our putuput from our DESeq results
+# Lets load our outuput from our DESeq results
 load('data/DE_output.Rda')
-
 # This will load two variables into our environment , des and res
 
 # get the raw count data
@@ -16,7 +15,6 @@ sample_info <- colData(des) %>% as.data.frame() # gets the sample information fr
 
 ################################################################################# 
 # pivot data into long form
-# can use basic barplot here - barplot(raw); barplot(normalized)
 raw_l <- raw %>% 
    as.data.frame() %>% 
    rownames_to_column() %>% 
@@ -31,6 +29,7 @@ raw_l <- raw_l %>%  left_join(sample_info, by = 'Sample' ) %>% mutate(method = '
 norm_l <- norm_l %>% left_join(sample_info, by = 'Sample') %>% mutate(method = 'norm')
 all_counts <- bind_rows(raw_l, norm_l)
 #################################################################################  
+# Now you can plot them together to see how the average counts per sample differ
 all_counts %>% 
    group_by(Sample, Group, method) %>% 
    summarise(total_reads = mean(count, na.rm = T) )  %>% 
@@ -53,7 +52,7 @@ all_counts %>%
 # Let's do some QC on our input data (des) 
 # PCA analysis is a good technique ot make sure samples are clustering 
 # by the expected grouping
-# First convert raw count dat 
+# First convert raw count data
 vst <- varianceStabilizingTransformation(des, blind = T)
 rlog <- rlog(des, blind = T)
 
