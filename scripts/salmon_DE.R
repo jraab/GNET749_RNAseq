@@ -55,7 +55,5 @@ summary(res)
 # We are going to save our deseq results object so we can use it for additional QC/Visualization
 save(des, res , file = 'data/DE_output.Rda')
 res_df <- as.data.frame(res) %>% rownames_to_column()
-res_df %>% arrange(padj) %>% head(10)
-res_df %>% filter(rowname == 'ARID2')
 write_tsv(res_df, 'class_data_results.tsv')
 

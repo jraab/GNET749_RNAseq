@@ -52,11 +52,21 @@ plotPCA(rlog, intgroup = 'Group')
 
 ################################################################################
 ## Let's cluster samples using a heatmap and correlation 
+# lots going on in this next line
+# assay(vst) - gets the variance stabilized count information
+# t() - transposes a matrix (i.e. makes the rows into columns)
+         #m <- matrix(c(1,2,3,4,5,6), nrow = 2)
+         #m
+         #t(m)
+# dist() - calculates distance between samples - way to look at groupings
+# as.matrix() - dist needs a matrix to operate on - so we convert out counts data to a matrix
 cor_samples <- as.matrix(dist(t(assay(vst)) )  )
+cor_samples
 sample_df <- colData(vst) 
 sample_df
-anno_df <- sample_df %>% as.data.frame() %>% select(Sample, Group) 
-hm_anno <-  HeatmapAnnotation(df  = sample_df$Group ) 
+anno_df <- sample_df %>% as.data.frame() %>% dplyr::select(Sample, Group) 
+# heatmap of similarities between samples - we'll discuss this in more detail next week
+hm_anno <-  HeatmapAnnotation(df  = sample_df$Group, col = list(df =c('A' = 'goldenrod', 'B' = 'steelblue') ) )
 Heatmap(cor_samples, top_annotation = hm_anno) 
 
 

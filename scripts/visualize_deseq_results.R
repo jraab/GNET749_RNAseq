@@ -25,31 +25,24 @@ plotMA(shrunk, ylim = c(-5,5))
 
 shrunk <- lfcShrink(des, coef = 2, type = 'ashr') 
 plotMA(shrunk, ylim = c(-5,5))
+# There are a few ways to shrink the lfc, see the DESeq doucumentation for help
+# https://bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html
 
 # Other data analysis and additional topics
 # This is an important plot to look at. 
 # P-values should be uniformly spread between 0-1
+res_df <- as.data.frame(res)
 hist(res_df[res_df$baseMean > 1, ]$pvalue) 
 # This histogram shows a bit of an enrichment of smaller p-values, this is good and
 # is what you expect if some genes do not fit our null hypothesis and actually differ between groups
 
 
-# Lots of low count genes with high fold changes, lets shrink the lfc
-resultsNames(des)
-# we need to konw which coefficient of our linear model we want to shrink
-# resultsNames shows 2 , intercept and Group_B_vs_A (our main effect)
-# we will shrink coef 2
-shrunk <- lfcShrink(des, type = 'apeglm', coef = 2)  
-# There are a few ways to shrink the lfc, see the DESeq doucumentation for help
-# https://bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html
 
-plotMA(shrunk, ylim = c(-4,4)) 
+
 sig_results <- as.data.frame(shrunk) %>% 
    rownames_to_column() %>% 
    filter(padj < 0.1)
 sig_results
-
-write_csv()
 
 # We can plot these as a Volcano Plot
 # Convert to a 
@@ -73,11 +66,12 @@ sdf %>%
 # Plot some of these using plotCounts
 plotCounts(des, gene = 'DDX3Y', intgroup = 'Group', norm = T)
 plotCounts(des, gene = 'POP1', intgroup = 'Group', norm = T)
-plotCounts(des, gene = 'IGHV1-24', intgroup = 'Group', norm = T)
 plotCounts(des, gene = 'DDX3X', intgroup  = 'Group', norm = T) 
 
 # Threshold by an arbitrary logfoldchange cutoff
-res_filt <- results(des, lfcThreshold = abs(1.5) )
+res_filt <- results(des, lfcThreshold = abs(0.6) )
+# The above tests if the |LFC| is at least > 0.6, not if the LFC is different from 0
+# This is NOT the same as filtering your genes for |LFC| > 0.6
 summary(res_filt)
 plotMA(res_filt)
 
@@ -90,13 +84,15 @@ norm_counts <- norm_counts[rownames(norm_counts) %in% genes, ]
 
 
 # I Like ComplexHeatmap for making heatmaps, although there are other packages (pheatmap, heatmap.2)
+design <- colData(des)
 column_ha <- HeatmapAnnotation(group = design$Group, 
-                               col = list(group =  c("A" = 'Grey10', 'B' = 'Steelblue')) ) # I get the syntax for colors wrong here all the time
+                               col = list(group =  c("A" = 'Grey10', 'B' = 'Steelblue')) ) # I get the syntax for colors wrong here all the timek
 Heatmap(norm_counts, top_annotation = column_ha) 
 # That heatmap basically just shows which genes are highly exprssed (not scaled by row)
 
 # Scale heatmap by row - this is usually what you want  
 scaled_hm <- t(scale(t(norm_counts), center = T, scale = T) )  # lets z-score our data by row
+# Lots happening above, key function is scale
 column_ha <- HeatmapAnnotation(group = design$Group, 
                                col = list(group =  c("A" = 'Grey10', 'B' = 'Steelblue')) )
 Heatmap(scaled_hm, top_annotation = column_ha)  
