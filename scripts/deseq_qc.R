@@ -38,16 +38,6 @@ all_counts %>%
    coord_flip() + 
    facet_wrap(~method)
    
-################################################################################
-# Look at distribution before and after normalization
-all_counts %>% 
-   ggplot(aes( x= Sample, y= log2(count), fill = Group))  + 
-   geom_violin() + 
-   geom_boxplot(fill = 'grey80', width = 0.1) + 
-   coord_flip() + 
-   facet_wrap(~method)
-
-
 # QC using PCA - samples should group by the condition(s) we are interested in
 # Let's do some QC on our input data (des) 
 # PCA analysis is a good technique ot make sure samples are clustering 
