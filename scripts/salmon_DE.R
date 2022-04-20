@@ -24,20 +24,21 @@ design
 
 mart <- useMart(biomart = 'ensembl', dataset = 'hsapiens_gene_ensembl'  )
 mart_res <- getBM(attributes = c('ensembl_transcript_id', 'external_gene_name'), mart = mart)
- 
+mart_res %>% head()
 # You can save this mart_res object as a csv file and reload it as below if you expect to need this mapping when not on the internet
 #write_csv(mart_res, file = '/Users/jraab/GitHub/GNET749_RNAseq/data/hsapiens_ensembl_mart.csv') 
 #mart_res <- read_csv('/Users/jraab/GitHub/GNET749_RNAseq/data/hsapiens_ensembl_mart.csv') 
 
 # Import Salmon quant files
 txi <- tximport(design$path, type = 'salmon', tx2gene = mart_res, ignoreTxVersion = T)
+txi$counts %>% head()
 colnames(txi$counts) <- design$Sample
 colnames(txi$counts)
 head(txi$counts)
 txi
 # The next line creates a summarizedExperiment object that can be usd for
 #     differential testing
-dds <- DESeqDataSetFromTximport(txi , colData = design, design = ~ Group) 
+dds <- DESeqDataSetFromTximport(txi , colData = design, design = ~ Group ) 
 dds
 #################################################################################
 # This is how we run the actual differential test with defaults 
