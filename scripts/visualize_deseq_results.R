@@ -36,9 +36,6 @@ hist(res_df[res_df$baseMean > 1, ]$pvalue)
 # This histogram shows a bit of an enrichment of smaller p-values, this is good and
 # is what you expect if some genes do not fit our null hypothesis and actually differ between groups
 
-
-
-
 sig_results <- as.data.frame(shrunk) %>% 
    rownames_to_column() %>% 
    filter(padj < 0.1)
@@ -56,6 +53,18 @@ sdf %>%
    theme(panel.grid = element_blank()) + 
    geom_vline(aes(xintercept = 0), linetype = 'dashed', color ='grey30' )
 
+# label some points that are signficant
+top_10 <- sdf %>% arrange(padj) %>% head(10)
+top_10
+sdf %>%
+   mutate(padj = ifelse(is.na(padj), 1, padj) ) %>% # replace NAs with 1 for padj for this plot
+   ggplot(aes(x = log2FoldChange, y = -log10(padj), color = padj < 0.1)) +
+   geom_point() + 
+   scale_color_manual(values = c('grey30', 'red2')) + 
+   theme_bw() + 
+   theme(panel.grid = element_blank()) + 
+   geom_vline(aes(xintercept = 0), linetype = 'dashed', color ='grey30' ) + 
+   ggrepel::geom_text_repel(aes(label = rowname), data= top_10) #new aesthetic, remember we can supply different dataframe here (top_10)
 
 # Now we can look at our results - we might specifically want to pick out our most significant genes and take a look
 sdf %>%
@@ -80,8 +89,8 @@ norm_counts <- counts(des, norm = T)
 
 # get a list of genes
 genes <- sdf %>% filter(padj < 0.1) %>% pull(rowname) # pull is a new verb I just learned! it selects one column and returns a vector
+# keep just tne rows for those genes ( could use filters here as well, but b/c gene names are the rownames and not a column in the dataframe, the following is easier)
 norm_counts <- norm_counts[rownames(norm_counts) %in% genes, ]
-
 
 # I Like ComplexHeatmap for making heatmaps, although there are other packages (pheatmap, heatmap.2)
 design <- colData(des)
