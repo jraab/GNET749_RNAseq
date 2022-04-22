@@ -58,7 +58,8 @@ dds_beta
 resultsNames(dds_beta)
 # We can then compare the numerator of interest (Brg1) to the average of the remaining conditions. 
 # listValues() lets you specify what value you will multiply each coefficent by
-x <- results(dds_beta, contrast = list('conditionBrg1', c('conditionNS', 'conditionBrm', 'conditionDouble')), listValues = c(1, -1/3) ) 
+x <- results(dds_beta, contrast = list('conditionBrg1', c('conditionNS', 'conditionBrm', 'conditionDouble')),
+                               listValues = c(1, -1/3) ) 
 x
 # This comparison asks which genes are differential expressed in BRG1 relative to the average of the other 3 groups
 #
@@ -108,8 +109,9 @@ table(res_lrt_brg$padj == res_lrt_brm$padj)
 #dds <- DESeqDataSetFromTximport(txi, colData = design, design = ~genotype + treat) 
 #save(dds, file = '~/proj/teaching/GNET749_S21/data/arid2_es.Rda')
 load('/Users/jraab/GitHub/GNET749_RNAseq/data/arid2_es.Rda')
-
+dds
 dds <- DESeq(dds)
+design(dds)
 # controlling for treatment, does genotype have an effect
 res_genotype <- results(dds, contrast = c('genotype', 'ARID2', 'WT') )  
 summary(res_genotype)
@@ -120,7 +122,8 @@ res_genotype %>%
    head(20)
 df <- plotCounts(dds, gene = 'Mapk8ip2', intgroup = c('genotype', 'treat' ), returnData = T)
 df %>% 
-   ggplot(aes(x = treat, y = log2(count), color = genotype) ) + geom_point(position = position_dodge(0.5))
+   ggplot(aes(x = treat, y = log2(count), color = genotype) ) +
+   geom_point(position = position_dodge(0.5))
 # controlling for genotype, does treatment have an effect
 
 # Since we have multiple treatments, and LRT test might be better 
@@ -143,7 +146,7 @@ df %>%
 # Is there an effect that differs by genotype
 dds_interaction <- dds
 design(dds_interaction) <- formula(~treat + genotype + treat:genotype)
-dds_interaction <-DESeq(dds_interaction, test = 'LRT', 
+dds_interaction <- DESeq(dds_interaction, test = 'LRT', 
                         full = design(dds_interaction),
                         reduced = ~genotype + treat)   
 

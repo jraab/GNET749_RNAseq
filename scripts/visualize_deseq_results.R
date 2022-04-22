@@ -4,7 +4,7 @@ library(DESeq2)
 # Load our data from DESeq analysis
 load(file = 'data/DE_output.Rda')
 # Has two variables (des, res) 
-
+res <- results(des) 
 # Investigate the output
 resultsNames(des)
 summary(res) # this shows 28 genes go up and ~15 go down 
@@ -16,6 +16,7 @@ DESeq2::plotMA(res, ylim = c(-5,5))
 #(notice the high lfc in the lower expression)
 # This is likely a poor estimate of the true fold chnage ( low expression with inflated lfc)
 # Need to specify which coefficient from our linear model to shrink
+resultsNames(des) 
 shrunk <- lfcShrink(des, coef = 2, type = 'normal') 
 DESeq2::plotMA(shrunk, ylim = c(-5,5))
 
@@ -92,10 +93,13 @@ norm_counts <- counts(des, norm = T)
 # get a list of genes
 genes <- sdf %>% filter(padj < 0.1) %>% pull(rowname) # pull is a new verb I just learned! it selects one column and returns a vector
 # keep just tne rows for those genes ( could use filters here as well, but b/c gene names are the rownames and not a column in the dataframe, the following is easier)
+dim(norm_counts)
 norm_counts <- norm_counts[rownames(norm_counts) %in% genes, ]
+dim(norm_counts)
 
 # I Like ComplexHeatmap for making heatmaps, although there are other packages (pheatmap, heatmap.2)
 design <- colData(des)
+design
 column_ha <- HeatmapAnnotation(group = design$Group, 
                                col = list(group =  c("A" = 'Grey10', 'B' = 'Steelblue')) ) # I get the syntax for colors wrong here all the timek
 Heatmap(norm_counts, top_annotation = column_ha) 

@@ -44,7 +44,6 @@ no_batch <- dds # making a duplicate of dds we can alter the design of
 design(no_batch) <- formula(~condition)  # replace the original design
 design(no_batch) 
 no_batch <- DESeq(no_batch)
-dds <- DESeq(dds) 
 
 res_nobatch <- results(no_batch, contrast  = c('condition', 'Brg1', 'NS') ) 
 res_batch   <- results(dds, contrast = c('condition', 'Brg1', 'NS') )                        
@@ -76,6 +75,7 @@ rbind(nobatch_sig, batch_sig ) %>%
 # this is useful if you want to PCA or work on the transformed count data
 
 vsd_batch_removed <- vsd
+vsd$rep
 # This step alters the variance stabilized data to remove the batch effect using limma
 assay(vsd_batch_removed) <- limma::removeBatchEffect(assay(vsd_batch_removed), batch = vsd$rep) 
 # Now we can replot as before
@@ -83,8 +83,8 @@ pbatch <- plotPCA(vsd_batch_removed, c('condition', 'rep'), returnData = T)
 pbatch %>% 
    ggplot(aes( x = PC1, y = PC2, color = condition, shape = rep)) + 
    geom_point(size = 3)
-# Now clustering looks much better
 
+# Now clustering looks much better
 ################################################################################
 # What if we don't know the batch information, but suspect there is a batch effect
 # Can use SVA or RUVseq or ComBat to try and identify a batch effect 
@@ -93,12 +93,15 @@ pbatch %>%
 #  Here, we'll try SVA - surrogate variable analysis.
 # we need to give it a full model with our variables of interest, here just condition
 full <- model.matrix(~condition, data = design)
+full
 # and a reduced model with any remaining variables, here just the intercept (1) 
 reduced <- model.matrix(~1, data = design) 
+reduced
 # Then we can get the normalized count data from dds
 dat <- counts(dds, normalized = T) 
 # And remove any very lowly expressed genes since the won't e informative
 idx <- rowMeans(dat) > 1
+table(idx)
 dat <- dat[idx,]
 # now we use sva on our count data, comparing the full and reduced model
 # We are asking sva to create new variables that preserve the effect of interest but remove others
@@ -112,6 +115,7 @@ dds_sva <- dds
 dds_sva
 dds_sva$V1 <- svobj$sv[,1] # This adds the surrogate variables to our colData
 dds_sva$V2 <- svobj$sv[,2]
+dds_sva
 design(dds_sva) <- ~V1 +V2 + condition # Including them here asks DESEq to account for those variables
 dds_sva <- DESeq(dds_sva)
 sva_res <- results(dds_sva, contrast = c('condition', 'Brg1', 'NS') ) 
@@ -141,6 +145,7 @@ dds_wrong$V1 <- sva_wrong$sv[,1]
 dds_wrong$V2 <- sva_wrong$sv[,2]
 dds_wrong$V3 <- sva_wrong$sv[,3]
 design(dds_wrong) <- ~V1 + V2 + V3 + condition
+design(dds_wrong)
 dds_wrong <- DESeq(dds_wrong) 
 res_wrong <- results(dds_wrong, contrast = c('condition', 'Brg1', 'NS') ) 
 summary(res_wrong) 
