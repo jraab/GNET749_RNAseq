@@ -11,20 +11,19 @@ summary(res) # this shows 28 genes go up and ~15 go down
 #at an adjusted  p-value of 0.1
  
 # MA Plot 
-plotMA(res, ylim = c(-5,5))
+DESeq2::plotMA(res, ylim = c(-5,5))
 
 #(notice the high lfc in the lower expression)
 # This is likely a poor estimate of the true fold chnage ( low expression with inflated lfc)
 # Need to specify which coefficient from our linear model to shrink
+shrunk <- lfcShrink(des, coef = 2, type = 'normal') 
+DESeq2::plotMA(shrunk, ylim = c(-5,5))
 
 shrunk <- lfcShrink(des, coef = 2, type = 'apeglm') 
-plotMA(shrunk, ylim = c(-5,5))
-
-shrunk <- lfcShrink(des, coef = 2, type = 'normal') 
-plotMA(shrunk, ylim = c(-5,5))
+DESeq2::plotMA(shrunk, ylim = c(-5,5))
 
 shrunk <- lfcShrink(des, coef = 2, type = 'ashr') 
-plotMA(shrunk, ylim = c(-5,5))
+DESeq2::plotMA(shrunk, ylim = c(-5,5))
 # There are a few ways to shrink the lfc, see the DESeq doucumentation for help
 # https://bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html
 
@@ -35,6 +34,8 @@ res_df <- as.data.frame(res)
 hist(res_df[res_df$baseMean > 1, ]$pvalue) 
 # This histogram shows a bit of an enrichment of smaller p-values, this is good and
 # is what you expect if some genes do not fit our null hypothesis and actually differ between groups
+hist(res_df[res_df$baseMean > 1, ]$padj) 
+
 
 sig_results <- as.data.frame(shrunk) %>% 
    rownames_to_column() %>% 
@@ -64,7 +65,7 @@ sdf %>%
    theme_bw() + 
    theme(panel.grid = element_blank()) + 
    geom_vline(aes(xintercept = 0), linetype = 'dashed', color ='grey30' ) + 
-   ggrepel::geom_text_repel(aes(label = rowname), data= top_10) #new aesthetic, remember we can supply different dataframe here (top_10)
+   ggrepel::geom_text_repel(aes(label = rowname), data= top_10, color = 'grey20') #new aesthetic, remember we can supply different dataframe here (top_10)
 
 # Now we can look at our results - we might specifically want to pick out our most significant genes and take a look
 sdf %>%
@@ -78,11 +79,12 @@ plotCounts(des, gene = 'POP1', intgroup = 'Group', norm = T)
 plotCounts(des, gene = 'DDX3X', intgroup  = 'Group', norm = T) 
 
 # Threshold by an arbitrary logfoldchange cutoff
-res_filt <- results(des, lfcThreshold = abs(0.6) )
-# The above tests if the |LFC| is at least > 0.6, not if the LFC is different from 0
+res_filt <- results(des, lfcThreshold = abs(1) )
+# The above tests if the |LFC| is at least > 1, not if the LFC is different from 0
 # This is NOT the same as filtering your genes for |LFC| > 0.6
+
 summary(res_filt)
-plotMA(res_filt)
+DESeq2::plotMA(res_filt)
 
 # Heatmap of significantly changed genes
 norm_counts <- counts(des, norm = T) 
@@ -97,12 +99,22 @@ design <- colData(des)
 column_ha <- HeatmapAnnotation(group = design$Group, 
                                col = list(group =  c("A" = 'Grey10', 'B' = 'Steelblue')) ) # I get the syntax for colors wrong here all the timek
 Heatmap(norm_counts, top_annotation = column_ha) 
-# That heatmap basically just shows which genes are highly exprssed (not scaled by row)
+# That heatmap basically jut shows which genes are highly exprssed (not scaled by row)
+vsd <- varianceStabilizingTransformation(des)
+vsd <- vsd[rownames(vsd) %in%  genes]
+Heatmap(as.matrix(assay(vsd)) , top_annotation = column_ha)
+# this is a little better, our scale is closer so easier to look at- things cluster better (b/c less affected by outliers)
+# But still mostly just showing which genes are high and which are low
 
 # Scale heatmap by row - this is usually what you want  
 scaled_hm <- t(scale(t(norm_counts), center = T, scale = T) )  # lets z-score our data by row
+scaled_vsd <- t(scale(t(assay(vsd)), center = T, scale = T) )
 # Lots happening above, key function is scale
 column_ha <- HeatmapAnnotation(group = design$Group, 
                                col = list(group =  c("A" = 'Grey10', 'B' = 'Steelblue')) )
 Heatmap(scaled_hm, top_annotation = column_ha)  
+
+column_ha <- HeatmapAnnotation(group = design$Group, 
+                               col = list(group =  c("A" = 'Grey10', 'B' = 'Steelblue')) )
+Heatmap(scaled_vsd, top_annotation = column_ha)  
 

@@ -24,13 +24,13 @@ dds <- DESeqDataSetFromMatrix(mat, colData = design, design = ~ rep + condition)
 # when controlling for batch/replicate it goes first in the formula
 # The last part of the formula is the condition that is being tested for 
 
-
-#Now use VST to look for batch effects
+#Now use VST and PCA to look for batch effects
 vsd <- varianceStabilizingTransformation(dds, blind = T) 
 plotPCA(vsd) # looks like there is not perfect grouping
 
 # Let's replot and show replicate as shape
 pp <- plotPCA(vsd, intgroup = c('condition', 'rep'), returnData = T) 
+pp
 pp %>%
    ggplot(aes( x = PC1, y = PC2, color = condition, shape = rep)) + 
    geom_point(size = 3)
@@ -49,10 +49,10 @@ dds <- DESeq(dds)
 res_nobatch <- results(no_batch, contrast  = c('condition', 'Brg1', 'NS') ) 
 res_batch   <- results(dds, contrast = c('condition', 'Brg1', 'NS') )                        
 
-summary(res_nobatch)
-summary(res_batch)
-# You can see accounting for batch increases the power
-# Let's plot this as a bargraph
+
+
+# 
+# Let's plot number of signifcant genes as a bargraph
 nobatch_sig <- res_nobatch %>%
    as.data.frame() %>%
    rownames_to_column() %>%
@@ -124,9 +124,9 @@ summary(res_nobatch)
 vsd_sva <- varianceStabilizingTransformation(dds_sva, blind = T)
 assay(vsd_sva) <- limma::removeBatchEffect(assay(vsd_sva), covariates = svobj$sv) 
 
-plotPCA(vsd, intgroup = c('condition') )  + coord_equal()
-plotPCA(vsd_batch_removed, intgroup = 'condition')  + coord_equal() #using known batch
-plotPCA(vsd_sva, intgroup = 'condition')  +coord_equal() # SVA batches
+plotPCA(vsd, intgroup = c('condition') ) 
+plotPCA(vsd_batch_removed, intgroup = 'condition') #using known batch
+plotPCA(vsd_sva, intgroup = 'condition')   # SVA batches
 
 # Does this method actually work - well lets permute the labels on our design matrix
 design_permute <- design
