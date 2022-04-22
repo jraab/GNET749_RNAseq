@@ -53,9 +53,10 @@ res_brg_vs_brm <- results(dds, contrast = c('condition', 'Brg1', 'Brm') )
 # the average value for multiple groups. An alternative approach is to change the design matrix 
 # to ~ 0 + condition (forcing the intercept to be 0). See the DESeq vignette for more info
 dds_beta <- DESeq(dds, betaPrior = T) 
+dds_beta
 # Now we can see that there is a coefficient for each condition rather than for the comparison
 resultsNames(dds_beta)
-# WE can then compare the numerator of interest (Brg1) to the average of the remaining conditions. 
+# We can then compare the numerator of interest (Brg1) to the average of the remaining conditions. 
 # listValues() lets you specify what value you will multiply each coefficent by
 x <- results(dds_beta, contrast = list('conditionBrg1', c('conditionNS', 'conditionBrm', 'conditionDouble')), listValues = c(1, -1/3) ) 
 
