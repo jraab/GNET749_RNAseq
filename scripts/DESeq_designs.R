@@ -59,11 +59,12 @@ resultsNames(dds_beta)
 # We can then compare the numerator of interest (Brg1) to the average of the remaining conditions. 
 # listValues() lets you specify what value you will multiply each coefficent by
 x <- results(dds_beta, contrast = list('conditionBrg1', c('conditionNS', 'conditionBrm', 'conditionDouble')), listValues = c(1, -1/3) ) 
-
+x
 # This comparison asks which genes are differential expressed in BRG1 relative to the average of the other 3 groups
 #
 # This is possibly better if you have many potential pair-wise comparisons
 # or do not have a natural reference population
+# Also better than having a new column called notBrg1 where Brg1 is 1 and all others are 0 b/c that treats the other samples as a single group, which may have highly different read counts from each other
 
 # Heatmap
 top_100 <- as.data.frame(x) %>% rownames_to_column() %>% arrange(padj) %>% head(100)
@@ -80,8 +81,10 @@ dds_lrt <- DESeq(dds, test = 'LRT', full = ~condition, reduced = ~1)
 resultsNames(dds_lrt)
 res_lrt_brg <- results(dds_lrt, contrast = c('condition', 'Brg1', 'NS') ) 
 res_lrt_brm <- results(dds_lrt, contrast = c('condition', 'Brm', 'NS') ) 
-summary(res_lrt_brg)
-summary(res_brg)
+# fold changes differ
+plot(res_lrt_brg$log2FoldChange, res_lrt_brm$log2FoldChange)
+# but pvalues are the same
+table(res_lrt_brg$padj == res_lrt_brm$padj)
 
 #######################################################################################################################
 # Multiple conditions
@@ -104,7 +107,7 @@ summary(res_brg)
 #txi <- tximport(files = design$path, type = 'salmon', tx2gene = mart_res, ignoreTxVersion = T) 
 #dds <- DESeqDataSetFromTximport(txi, colData = design, design = ~genotype + treat) 
 #save(dds, file = '~/proj/teaching/GNET749_S21/data/arid2_es.Rda')
-load('~/proj/teaching/GNET749_S21/data/arid2_es.Rda')
+load('/Users/jraab/GitHub/GNET749_RNAseq/data/arid2_es.Rda')
 
 dds <- DESeq(dds)
 # controlling for treatment, does genotype have an effect
@@ -115,13 +118,13 @@ res_genotype %>%
    rownames_to_column() %>%
    arrange(padj) %>%
    head(20)
-
 df <- plotCounts(dds, gene = 'Mapk8ip2', intgroup = c('genotype', 'treat' ), returnData = T)
 df %>% 
    ggplot(aes(x = treat, y = log2(count), color = genotype) ) + geom_point(position = position_dodge(0.5))
 # controlling for genotype, does treatment have an effect
+
 # Since we have multiple treatments, and LRT test might be better 
-dds_treat <- DESeq(dds, test = 'LRT', full = ~ genotype + treat, reduced = ~treat) 
+dds_treat <- DESeq(dds, test = 'LRT', full = ~ genotype + treat, reduced = ~genotype) 
 res_treat <- results(dds_treat) # This will give us p-values for genes that have a treatment effect
 # however, the logfoldchanges do not tell us anything useful
 # we also don't know which treatments have an effect
@@ -133,7 +136,7 @@ res_treat %>%
    arrange(padj) %>%
    head(20)
 
-df <- plotCounts(dds, gene = 'Prrc1', intgroup = c('genotype', 'treat' ), returnData = T)
+df <- plotCounts(dds, gene = 'Olfr1459', intgroup = c('genotype', 'treat' ), returnData = T)
 df %>% 
    ggplot(aes(x = treat, y = log2(count), color = genotype) ) + geom_point(position = position_dodge(0.5))
 
@@ -143,8 +146,10 @@ design(dds_interaction) <- formula(~treat + genotype + treat:genotype)
 dds_interaction <-DESeq(dds_interaction, test = 'LRT', 
                         full = design(dds_interaction),
                         reduced = ~genotype + treat)   
-res_interaction <- results(dds_interaction)
 
+resultsNames(dds_interaction) # while it looks like you could extract other comparisons, 
+# all the p-values come from the LRT models we tested, so they will differ than if we perform the Wald tests above
+res_interaction <- results(dds_interaction, name = 'treatFGF48.genotypeWT' )
 summary(res_interaction) 
 res_interaction %>%
    as.data.frame() %>%
@@ -154,12 +159,18 @@ res_interaction %>%
 plotCounts(dds_interaction, gene = 'Srp54b', intgroup = c('genotype', 'treat' ), returnData=T) %>%
    ggplot(aes(x = genotype, y = count, color = treat ))  + geom_point() + 
    facet_wrap(~treat) 
-resultsNames(dds_interaction) # while it looks like you could extract other comparisons, 
-# all the p-values come from the LRT models we tested, so they will differ than if we perform the Wald tests above
+
 
 res_genotype_WT_vs_ARID2 <- results(dds_interaction, contrast = c('genotype', 'WT', 'ARID2')) 
 table(res_genotype_WT_vs_ARID2$padj < 0.1)
 table(res_interaction$padj < 0.1)
 table(res_genotype_WT_vs_ARID2$log2FoldChange > 5)
 table(res_interaction$log2FoldChange > 5)
+
+res_genotype_WT_vs_ARID2 %>% 
+   as.data.frame() %>% 
+   rownames_to_column() %>% 
+   arrange(log2FoldChange) %>% head(20)
+
+
 
