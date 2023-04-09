@@ -1,12 +1,11 @@
 #Intro to R class ``
 # Installing packages
-install.packages('tidyverse')
-#install.packages('ggthemes')
+# These may already be installed on longleaf
+#install.packages('tidyverse')
 #install.packages(c('ggrepel', 'ggextra' )  ) 
 
 # Loading packages
 library(tidyverse)
-#library(ggthemes)
 
 # What is loaded  - Good to run at the end
 sessionInfo() 
@@ -22,13 +21,16 @@ b <- 1:5 # vector
 d <- 'character'
 a + b 
 a <- 3
-
+a
 a * b
 
 # List 
 l <- c('histones', 'are', 'cool')
-ln <- c(3, 5, 7, 9)
-sort(ln)
+m <- list('histones','are', 'cool')
+
+vals <- c( 5, 3, 9, 7) 
+vals
+sort(vals)
 
 # Start with a built in dataset
 iris
@@ -53,28 +55,43 @@ iris[c(1,3)]
 #How to access the first and third column
 iris[,c(1,3)]
 
+## How to work with tables of data 
+# Tidyverse makes this easy - there are many funcionts which you can think of as verbs
+# they let you tell R what you want to do with the data
+
+# Group by 
+iris
+
+
+
 ### Lets look at the data - Plotting --------------------------------------------------
 colnames(iris) # here are the names of our columns - we'll use these to plot
 ggplot(iris, aes( x = Sepal.Length, y = Sepal.Width)) + geom_point()
 
 # ggplot is very powerful, you can add things to the plots very easily
+# Let's make each points color match its species - assign Species to the color aesthetic
 ggplot(iris, aes( x = Sepal.Length, y = Sepal.Width, color = Species)) + 
    geom_point()  
-   
+  
+# What if we want each speices on its own plot - use facet_wrap/facet_grid 
 ggplot(iris, aes( x = Sepal.Length, y = Sepal.Width, color = Species)) + 
    geom_point()  +  
    facet_wrap(~Species)
  
+# How about adding a regression line
 ggplot(iris, aes( x = Sepal.Length, y = Sepal.Width, color = Species)) + 
    geom_point()  +  
    facet_wrap(~Species) + 
    geom_smooth(method = 'lm')
 
+
 #You can do even calculations right in the plot call 
+# Plot sepal.area vs petal.area. 
 ggplot(iris, aes( x = Sepal.Length*Sepal.Width, y = Petal.Length*Petal.Width, color = Species)) + 
    geom_point()
  
-# What if we want to make a different kind fo plot
+# What if we want to make a different kind of plot
+# use a different geom
 ggplot(iris, aes( x = Species, y = Sepal.Length)) + 
    geom_point()
 
@@ -87,6 +104,7 @@ ggplot(iris, aes( x = Species, y = Sepal.Length)) +
 ggplot(iris, aes( x = Species, y = Sepal.Length)) + 
    geom_boxplot()
 
+# You can even combine mutliple geom's - make a box plot with points on top
 ggplot(iris, aes( x = Species, y = Sepal.Length)) + 
    geom_boxplot() + 
    geom_point()
@@ -95,11 +113,8 @@ ggplot(iris, aes( x = Species, y = Sepal.Length)) +
    geom_boxplot() + 
    geom_jitter(width =0.1)
 
-ggplot(iris, aes( x = Species, y = Sepal.Length)) + 
-   geom_boxplot() + 
-   geom_jitter(width =0.1)
-
 ###### Lets talk about how to make plots prettier  ########################
+
 iris_summary %>% 
    ggplot(aes(x = Species, y = mean_sepal_width)) + 
    geom_col() + 
@@ -263,5 +278,7 @@ comb %>%
           ap_final = ifelse(is.na(ap_final), 26, ap_final)) %>% 
    ggplot(aes( x = ap_pre, y = ap_final, color = team)) + 
    geom_point()
+
+#Practices
 
 
