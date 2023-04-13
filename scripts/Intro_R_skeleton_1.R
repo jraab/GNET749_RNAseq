@@ -86,6 +86,9 @@ iris
 # what is the stardard deviation
 
 
+# Adding new data - mutate
+
+
 ##### Practice Time# ######################################################################  
 ToothGrowth
 ?ToothGrowth
@@ -94,4 +97,6 @@ ToothGrowth
 # How about observations for supplement + dose (# you can group_by on two or more things)
 # What is the average tooth length (overall, and per supplment/dose)
 # Filter out samples with ToothGrowth < 20
+# add a column if toothgrowth > 20 
+
 

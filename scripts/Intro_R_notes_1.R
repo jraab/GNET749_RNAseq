@@ -91,6 +91,9 @@ iris |> group_by(Species) |>
   summarise(mean_petal_length = mean(Petal.Length), 
             sd_petal_length   = sd(Petal.Length))
 
+# Adding new data - mutate
+iris |> mutate(Sepal.area = Sepal.Length * Sepal.Width) 
+
 ##### Practice Time# ######################################################################  
 ToothGrowth
 ?ToothGrowth

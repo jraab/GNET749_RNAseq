@@ -1,3 +1,5 @@
+# Now for more fun - plotting
+library(tidyverse) - includes ggplot2
 
 
 ### Lets look at the data - Plotting --------------------------------------------------
