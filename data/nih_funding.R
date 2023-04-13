@@ -1,6 +1,6 @@
 library(tidyverse)
 
-ww <- read_csv('~/proj/teaching/GNET749_S21/Worldwide2020.csv') # You'll need to replace this path with a path to the file on your own computer
+ww <- read_csv('') # You'll need to replace this path with a path to the file on your own computer
 
 # New data set using NIH Funding - Fun
 
