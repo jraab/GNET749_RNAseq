@@ -13,7 +13,7 @@ ggplot(iris, aes( x = Sepal.Length, y = Sepal.Width, color = Species)) +
 
 # What if we want each speices on its own plot - use facet_wrap/facet_grid 
 ggplot(iris, aes( x = Sepal.Length, y = Sepal.Width, color = Species)) + 
-  geom_point()  +  
+  geom_point() +  
   facet_wrap(~Species)
 
 # How about adding a regression line
@@ -51,36 +51,105 @@ ggplot(iris, aes( x = Species, y = Sepal.Length)) +
   geom_boxplot() + 
   geom_jitter(width =0.1)
 
+iris_summary <- iris |> group_by(Species) |> 
+  summarise (mean_sepal_width= mean(Sepal.Width), 
+             sd_sepal_width = sd(Sepal.Width) ) 
+ 
+iris_summary |> 
+  ggplot(aes(x = Species, y = mean_sepal_width)) + 
+  geom_col() + 
+  geom_errorbar(aes(ymin = mean_sepal_width-sd_sepal_width, 
+                    ymax = mean_sepal_width+sd_sepal_width) ) 
+
+iris_summary |> 
+  ggplot(aes(x = Species, y = mean_sepal_width)) + 
+  geom_col(fill = 'grey90', color = 'grey20') + 
+  geom_errorbar(aes(ymin = mean_sepal_width-sd_sepal_width, 
+                    ymax = mean_sepal_width+sd_sepal_width), 
+                width = 0.1) 
+
+iris_summary |> 
+  ggplot(aes(x = Species, y = mean_sepal_width)) + 
+  geom_col(fill = 'grey90', color = 'grey20') + 
+  geom_errorbar(aes(ymin = mean_sepal_width-sd_sepal_width, 
+                    ymax = mean_sepal_width+sd_sepal_width), 
+                width = 0.1) +
+  theme_bw()
+
+iris_summary |> 
+  ggplot(aes(x = Species, y = mean_sepal_width)) + 
+  geom_col(fill = 'grey90', color = 'grey20') + 
+  geom_errorbar(aes(ymin = mean_sepal_width-sd_sepal_width, 
+                    ymax = mean_sepal_width+sd_sepal_width), 
+                width = 0.1) +
+  theme_classic()
+
+
+iris_summary |> 
+  ggplot(aes(x = Species, y = mean_sepal_width)) + 
+  geom_col(fill = 'grey90', color = 'grey20') + 
+  geom_errorbar(aes(ymin = mean_sepal_width-sd_sepal_width, 
+                    ymax = mean_sepal_width+sd_sepal_width), 
+                width = 0.1) +
+  ggthemes::theme_excel()
+
+iris_summary |> 
+  ggplot(aes(x = Species, y = mean_sepal_width)) + 
+  geom_col(fill = 'grey90', color = 'grey20') + 
+  geom_errorbar(aes(ymin = mean_sepal_width-sd_sepal_width, 
+                    ymax = mean_sepal_width+sd_sepal_width), 
+                width = 0.1) +
+  theme_bw() + 
+  theme(panel.grid = element_line(linetype = 'dashed', color = 'steelblue') ) 
+  
+###### Pivoting   ##############################################################
+iris  # not tidy data -  each row has observations for mulitple measurements
+iris_long <- pivot_longer(iris, names_to = 'measurement', values_to = 'vals', cols = -Species)
+iris_long |> ggplot(aes(x = measurement, y = vals)) + geom_boxplot()
+# can go the other way too 
+iris_wide <- pivot_wider(iris_long,  id_cols = Species, names_from = measurement, values_from = vals)
+# why doesn't this work - because now each row isn't unique
+iris_wide <- iris |> rowid_to_column() |> 
+  pivot_longer(names_to = 'measurement', values_to = 'vals', cols = c(-Species,-rowid) ) |> 
+  pivot_wider(id_cols = c(rowid, Species), names_from =  measurement, values_from = vals) 
+
+
 ###### Lets talk about how to make plots prettier  ########################
 
-iris_summary %>% 
+
+iris_summary |> 
   ggplot(aes(x = Species, y = mean_sepal_width)) + 
   geom_col() + 
   theme_bw()
 
-iris_summary %>% 
+iris_summary |> 
   ggplot(aes(x = Species, y = mean_sepal_width)) + 
   geom_col() + 
-  theme_fivethirtyeight()
+  ggthemes::theme_fivethirtyeight()
 
-iris_summary %>% 
+iris_summary |> 
+  ggplot(aes(x = Species, y = mean_sepal_width)) + 
+  geom_col() + 
+  ggthemes::theme_excel()
+
+iris_summary |> 
   ggplot(aes(x = Species, y = mean_sepal_width)) + 
   geom_col() + 
   theme_excel()
 
-iris_summary %>% 
+iris_summary |> 
   ggplot(aes(x = Species, y = mean_sepal_width)) + 
   geom_col() + 
   theme_economist()
 
-iris_summary %>% 
+iris_summary |> 
   ggplot(aes(x = Species, y = mean_sepal_width)) + 
   geom_col() + 
   theme_bw() + 
   theme(panel.grid = element_blank(), 
         axis.text.x = element_text(size = 24, family = 'serif'))
 
-iris_summary %>% 
+iris_summary |> 
   ggplot(aes(x = Species, y = mean_sepal_width, fill = Species)) + 
   geom_col() + 
   theme_bw() + 
@@ -88,7 +157,7 @@ iris_summary %>%
         axis.text.x = element_text(size = 24, family = 'serif')) + 
   scale_fill_wsj()
 
-iris_summary %>% 
+iris_summary |> 
   ggplot(aes(x = Species, y = mean_sepal_width, fill = Species)) + 
   geom_col() + 
   theme_bw() + 
@@ -99,27 +168,27 @@ iris_summary %>%
 
 
 
-########### How can we make summary statistics  - Introduce pipe    ########## 
-iris %>% 
+########### How can we make summary statistics        ########## 
+iris |> 
   ggplot(aes(x = Sepal.Length, y = Sepal.Width, color = Species)) + 
   geom_point()
 
-iris %>%
-  group_by(Species) %>% 
+iris |>
+  group_by(Species) |> 
   summarise(mean_sepal_width = mean(Sepal.Width), 
             mean_sepal_length = mean(Sepal.Length) )
 
-iris_summary <- iris %>%
-  group_by(Species) %>% 
+iris_summary <- iris |>
+  group_by(Species) |> 
   summarise(mean_sepal_width = mean(Sepal.Width), 
             mean_sepal_length = mean(Sepal.Length) )
 iris_summary
 
-iris_summary %>% 
+iris_summary |> 
   ggplot(aes(x = Species, y = mean_sepal_width)) + 
   geom_col()
 
-iris_summary %>% 
+iris_summary |> 
   ggplot(aes(x = Species, y = mean_sepal_width, fill = Species)) + 
   geom_col(color = 'grey30') + 
   theme_bw() + 
@@ -128,95 +197,80 @@ iris_summary %>%
   scale_fill_manual(values = c('steelblue', 'forestgreen', 'goldenrod'))
 
 # what else can the pipe do
-iris %>% head() # can pipe to a base function
+iris |> head() # can pipe to a base function
 # can filter
-iris %>%  filter(!Species == 'setosa')
+iris |>  filter(!Species == 'setosa')
 # can keep some columns
-iris %>% select(!Species)
+iris  |>  select(!Species)
 #can order the data
-iris %>% arrange(Petal.Length)
-iris %>% arrange(desc(Petal.Length))
-iris %>%  # add column
+iris |> arrange(Petal.Length)
+iris |> arrange(desc(Petal.Length))
+iris |>  # add column
   mutate(sepal.area = Sepal.Length * Sepal.Width)
-iris <- iris %>% 
+iris <- iris |> 
   mutate(sepal.area = Sepal.Length * Sepal.Width)
 
 # can combine these with groupings
-iris %>% 
-  group_by(Species) %>% 
+iris |> 
+  group_by(Species) |> 
   summarise(mean_area  = mean(sepal.area) ) 
 
 # can be more complicated
-iris %>% 
-  group_by(Species) %>% 
+iris |> 
+  group_by(Species) |> 
   mutate(z  = (sepal.area - mean(sepal.area)) / sd(sepal.area) ) 
 
 # Can go right into plotting
-iris %>% 
-  group_by(Species) %>% 
-  mutate(z  = (sepal.area - mean(sepal.area)) / sd(sepal.area) )  %>% 
+iris |> 
+  group_by(Species) |> 
+  mutate(z  = (sepal.area - mean(sepal.area)) / sd(sepal.area) )  |> 
   ggplot(aes(x =z)) + geom_density()
 
-iris %>% 
-  group_by(Species) %>% 
-  mutate(z  = (sepal.area - mean(sepal.area)) / sd(sepal.area) )  %>% 
-  group_by(Species) %>% 
+iris |> 
+  group_by(Species) |> 
+  mutate(z  = (sepal.area - mean(sepal.area)) / sd(sepal.area) )  |> 
+  group_by(Species) |> 
   summarise(u = mean(z) )  
 
 # sanity check - shoudl be 0
-iris %>% 
-  group_by(Species) %>% 
-  mutate(z  = (sepal.area - mean(sepal.area)) / sd(sepal.area) )  %>% 
+iris |> 
+  group_by(Species) |> 
+  mutate(z  = (sepal.area - mean(sepal.area)) / sd(sepal.area) )  |> 
   ggplot(aes(x =z, color = Species)) + geom_density()
 
+# 
 
 # Importing Data
 # Data sets from sports-reference.com
-duke_file <- '~/Desktop/duke_stats.csv' # change this to match where your file is
-unc_file <-  '~/Desktop/unc_stats.csv' # change this to match where your file is 
-unc  <- read_csv(unc_file, skip = 1)
-unc
-unc  <- read_csv(unc_file)
-unc
-# note column names are messy - information is encoded in row1 - but not easy to read automatically
-# lets make our own column names
-cnames <- c('row', 'season', 'conf', 'overall_w', 'overall_l', 'overall_w_l_percent', 
-            'conf_w', 'conf_l', 'conf_w_l_percent',
-            'srs', 'sos', 'pts_for_avg', 'pts_against_avg', 
-            'ap_pre', 'ap_high', 'ap_final','tourney', 'coach')
-
-# Now we can re-read the data in with our own column names - skip first 2  rows
-duke <- read_csv(duke_file, col_names = cnames, skip = 2)
-unc  <- read_csv(unc_file, col_names = cnames, skip = 2)
-# we can add a label for team 
-duke <- duke %>% mutate(team = 'BadGuys')
-unc  <- unc %>%  mutate(team = 'GoodGuys')
-# now we can stick the whole thing together
-comb <- rbind(duke, unc) # rbind is a function that sticks one date frame on top the other
-comb
-comb %>% 
+# see clean_duke_unc.R to see how I merged the data and cleaned it u  p
+comb <- read_csv('data/duke_unc_hoops.csv')
+comb |> 
   ggplot(aes(x = overall_w_l_percent, color = team) ) + 
   geom_density() 
 
-comb %>% 
+comb |> 
   ggplot(aes(y = overall_w_l_percent, x = team, color = team) ) + 
   geom_boxplot(notch = T) 
 # conclusive proof that UNC > Duke
-comb %>% glimpse
-comb %>% 
+comb |> glimpse
+comb |> 
   ggplot(aes(x = ap_pre, y = ap_final, color = team)) + 
   geom_point()
 
 # lots of missing data - why?
+table(is.na(comb$ap_final), comb$team)
 
 # if one is NA - gets removed; hhow to deal
 # Lets make up a number, 26 and put all unranked there
-comb %>% 
+comb |> 
   mutate(ap_pre = ifelse(is.na(ap_pre), 26, ap_pre), 
-         ap_final = ifelse(is.na(ap_final), 26, ap_final)) %>% 
+         ap_final = ifelse(is.na(ap_final), 26, ap_final)) |> 
   ggplot(aes( x = ap_pre, y = ap_final, color = team)) + 
   geom_point()
 
 #Practices
+
+
+
 
 
