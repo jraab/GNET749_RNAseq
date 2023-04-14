@@ -6,15 +6,17 @@ Code for GNET/PHCO749 RNA-seq class
 
 - data contains data we will use in class for excercises
 
-**Goals**
+**Spring 2023 Schedule**
 
-Week 1 - Basic R introduction
-
-Week 2 - Differential expression and QC using DESeq2
-
-Week 3 - Batch effects and Gene Set Enrichment
-
-
+Date | Topic
+--- | ---
+2023-04-14 | Github  <br/> R/Rstudio installation  <br/> R syntax  <br/> Getting and transforming data
+2023-04-17 |  Plotting <br/> Exploratory data analysis 
+2023-04-19 | Fucnctions <br/> Coding best practices/scripts
+2023-04-21 | RNAseq analysis
+2023-04-24 | RNAseq visualization/QC
+2023-04-26 | Contrasts & Batch Effects 
+2023-04-28 | GO / GSEA / Enrichment
 
 **Additional Resources**
 
