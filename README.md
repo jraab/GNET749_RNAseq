@@ -2,7 +2,7 @@
 
 Code for GNET/PHCO749 RNA-seq class
 
-- scripts contains worked examples from class and additioanl code resources
+- scripts contains worked examples from class and additional code resources
 
 - data contains data we will use in class for excercises
 
