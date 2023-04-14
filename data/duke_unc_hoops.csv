@@ -1,0 +1,230 @@
+row,season,conf,overall_w,overall_l,overall_w_l_percent,conf_w,conf_l,conf_w_l_percent,srs,sos,pts_for_avg,pts_against_avg,ap_pre,ap_high,ap_final,tourney,coach,x19,X19,"""GoodGuys"""
+1,2021-22,ACC,30,6,0.833,16,4,0.8,19.38,6.36,80.3,67.2,9,1,9,Playing Regional Semifinal,2,Mike Krzyzewski (30-6),NA,NA
+2,2020-21,ACC,13,11,0.542,9,9,0.5,13.04,8.33,76,71.3,9,6,NA,NA,NA,Mike Krzyzewski (13-11),NA,NA
+3,2019-20,ACC,25,6,0.806,15,5,0.75,22.55,8,82.5,68,4,1,11,NA,NA,Mike Krzyzewski (25-6),NA,NA
+4,2018-19,ACC,32,6,0.842,14,4,0.778,26.9,11.98,82.7,67.8,4,1,1,Lost Regional Final,1,Mike Krzyzewski (32-6),NA,NA
+5,2017-18,ACC,29,8,0.784,13,5,0.722,24.43,9.7,84.4,69.6,1,1,9,Lost Regional Final,2,Mike Krzyzewski (29-8),NA,NA
+6,2016-17,ACC,28,9,0.757,11,7,0.611,21.56,10.91,80.8,70.2,1,1,7,Lost Second Round,2,Mike Krzyzewski (28-9),NA,NA
+7,2015-16,ACC,25,11,0.694,11,7,0.611,19.23,10.59,81.1,72.5,5,5,19,Lost Regional Semifinal,4,Mike Krzyzewski (25-11),NA,NA
+8,2014-15,ACC,35,4,0.897,15,3,0.833,24.97,9.87,79.3,64.2,4,2,4,Won National Final,1,Mike Krzyzewski (35-4),NA,NA
+9,2013-14,ACC,26,9,0.743,13,5,0.722,19.51,8.48,78.4,67.4,4,4,8,Lost Second Round,3,Mike Krzyzewski (26-9),NA,NA
+10,2012-13,ACC,30,6,0.833,14,4,0.778,21.46,9.57,77.2,65.3,8,1,6,Lost Regional Final,2,Mike Krzyzewski (30-6),NA,NA
+11,2011-12,ACC,27,7,0.794,13,3,0.813,17.05,8.4,77.3,68.6,6,3,8,Lost Second Round,2,Mike Krzyzewski (27-7),NA,NA
+12,2010-11,ACC,32,5,0.865,13,3,0.813,24.51,8.32,80.9,64.7,1,1,3,Lost Regional Semifinal,1,Mike Krzyzewski (32-5),NA,NA
+13,2009-10,ACC,35,5,0.875,13,3,0.813,25.21,9.21,77,61,9,3,3,Won National Final,1,Mike Krzyzewski (35-5),NA,NA
+14,2008-09,ACC,30,7,0.811,11,5,0.688,20.1,9.07,77.5,65.9,8,1,6,Lost Regional Semifinal,2,Mike Krzyzewski (30-7),NA,NA
+15,2007-08,ACC,28,6,0.824,13,3,0.813,21.52,9.28,83.2,69.4,13,2,9,Lost Second Round,2,Mike Krzyzewski (28-6),NA,NA
+16,2006-07,ACC,22,11,0.667,8,8,0.5,18.85,10.49,70.4,62,12,5,NA,Lost First Round,6,Mike Krzyzewski (22-11),NA,NA
+17,2005-06,ACC,32,4,0.889,14,2,0.875,21.77,8.77,81.1,68.1,1,1,1,Lost Regional Semifinal,1,Mike Krzyzewski (32-4),NA,NA
+18,2004-05,ACC,27,6,0.818,11,5,0.688,23.01,10.05,78.2,65.2,11,2,3,Lost Regional Semifinal,1,Mike Krzyzewski (27-6),NA,NA
+19,2003-04,ACC,31,6,0.838,13,3,0.813,25.67,10.86,79.8,65,2,1,6,Lost National Semifinal,1,Mike Krzyzewski (31-6),NA,NA
+20,2002-03,ACC,26,7,0.788,11,5,0.688,19.86,8.37,81.1,69.6,6,1,7,Lost Regional Semifinal,3,Mike Krzyzewski (26-7),NA,NA
+21,2001-02,ACC,31,4,0.886,13,3,0.813,28.91,9.16,88.9,69.2,1,1,1,Lost Regional Semifinal,1,Mike Krzyzewski (31-4),NA,NA
+22,2000-01,ACC,35,4,0.897,13,3,0.813,32.18,11.98,90.7,70.5,2,1,1,Won National Final,1,Mike Krzyzewski (35-4),NA,NA
+23,1999-00,ACC,29,5,0.853,15,1,0.938,25.55,8.88,88,71.3,10,1,1,Lost Regional Semifinal,1,Mike Krzyzewski (29-5),NA,NA
+24,1998-99,ACC,37,2,0.949,16,0,1,34.79,10.12,91.8,67.2,1,1,1,Lost National Final,1,Mike Krzyzewski (37-2),NA,NA
+25,1997-98,ACC,32,4,0.889,15,1,0.938,29.55,9.32,85.6,64.1,3,1,3,Lost Regional Final,1,Mike Krzyzewski (32-4),NA,NA
+26,1996-97,ACC,24,9,0.727,12,4,0.75,22.52,9.06,79.7,66.2,10,6,8,Lost Second Round,2,Mike Krzyzewski (24-9),NA,NA
+27,1995-96,ACC,18,13,0.581,8,8,0.5,16.06,10.48,75.4,69.8,NA,12,NA,Lost First Round,8,Mike Krzyzewski (18-13),NA,NA
+28,1994-95,ACC,13,18,0.419,2,14,0.125,16.35,11.82,77.7,73.7,8,6,NA,NA,NA,Mike Krzyzewski (9-3) Pete Gaudet (4-15),NA,NA
+29,1993-94,ACC,28,6,0.824,12,4,0.75,19.29,9,77.6,67.3,4,1,6,Lost National Final,2,Mike Krzyzewski (28-6),NA,NA
+30,1992-93,ACC,24,8,0.75,10,6,0.625,25.98,10.76,86.4,71.2,3,1,10,Lost Second Round,3,Mike Krzyzewski (24-8),NA,NA
+31,1991-92,ACC,34,2,0.944,14,2,0.875,24.71,10.21,88,72.6,1,1,1,Won National Final,1,Mike Krzyzewski (34-2),NA,NA
+32,1990-91,ACC,32,7,0.821,11,3,0.786,24.92,10.63,87.7,73.4,6,5,6,Won National Final,2,Mike Krzyzewski (32-7),NA,NA
+33,1989-90,ACC,29,9,0.763,9,5,0.643,21.34,8.81,89.1,76.6,10,3,15,Lost National Final,3,Mike Krzyzewski (29-9),NA,NA
+34,1988-89,ACC,28,8,0.778,9,5,0.643,24.95,8.2,86.5,69.8,1,1,9,Lost National Semifinal,2,Mike Krzyzewski (28-8),NA,NA
+35,1987-88,ACC,28,7,0.8,9,5,0.643,23.33,8.38,83.8,68.8,15,4,5,Lost National Semifinal,2,Mike Krzyzewski (28-7),NA,NA
+36,1986-87,ACC,24,9,0.727,9,5,0.643,16.82,7.17,77.2,67.3,NA,12,17,Lost Regional Semifinal,5,Mike Krzyzewski (24-9),NA,NA
+37,1985-86,ACC,37,3,0.925,12,2,0.857,22.1,9.5,79.9,67.2,6,1,1,Lost National Final,1,Mike Krzyzewski (37-3),NA,NA
+38,1984-85,ACC,23,8,0.742,8,6,0.571,18.38,7.38,78.9,67.9,6,2,10,Lost Second Round,3,Mike Krzyzewski (23-8),NA,NA
+39,1983-84,ACC,24,10,0.706,7,7,0.5,11.86,6.92,77.2,72.3,NA,14,14,Lost Second Round,3,Mike Krzyzewski (24-10),NA,NA
+40,1982-83,ACC,11,17,0.393,3,11,0.214,2.99,6.49,76.7,80.6,NA,NA,NA,NA,NA,Mike Krzyzewski (11-17),NA,NA
+41,1981-82,ACC,10,17,0.37,4,10,0.286,1.2,7.17,64,70,NA,NA,NA,NA,NA,Mike Krzyzewski (10-17),NA,NA
+42,1980-81,ACC,17,13,0.567,6,8,0.429,10.18,7.11,69.9,66.9,NA,NA,NA,NA,NA,Mike Krzyzewski (17-13),NA,NA
+43,1979-80,ACC,24,9,0.727,7,7,0.5,13.73,8.24,73.3,68.3,3,1,14,Lost Regional Final,4,Bill E. Foster (24-9),NA,NA
+44,1978-79,ACC,22,8,0.733,9,3,0.75,15.35,8.99,71.9,65.5,1,1,11,Lost Second Round,2,Bill E. Foster (22-8),NA,NA
+45,1977-78,ACC,27,7,0.794,8,4,0.667,16.1,7.87,85.6,74.4,NA,7,7,Lost National Final,NA,Bill E. Foster (27-7),NA,NA
+46,1976-77,ACC,14,13,0.519,2,10,0.167,10.68,7.95,76.4,72.9,NA,NA,NA,NA,NA,Bill E. Foster (14-13),NA,NA
+47,1975-76,ACC,13,14,0.481,3,9,0.25,11.03,8.84,88.3,85,NA,NA,NA,NA,NA,Bill E. Foster (13-14),NA,NA
+48,1974-75,ACC,13,13,0.5,2,10,0.167,8.34,7,82.9,81.5,NA,NA,NA,NA,NA,Bill E. Foster (13-13),NA,NA
+49,1973-74,ACC,10,16,0.385,2,10,0.167,5.51,7.85,75.3,77.6,NA,NA,NA,NA,NA,Neill McGeachy (10-16),NA,NA
+50,1972-73,ACC,12,14,0.462,4,8,0.333,7.73,6.54,78.1,76.9,NA,NA,NA,NA,NA,Bucky Waters (12-14),NA,NA
+51,1971-72,ACC,14,12,0.538,6,6,0.5,6.71,6.4,68.5,68.2,NA,NA,NA,NA,NA,Bucky Waters (14-12),NA,NA
+52,1970-71,ACC,20,10,0.667,9,5,0.643,12.07,6.23,79.6,73.7,13,13,NA,NA,NA,Bucky Waters (20-10),NA,NA
+53,1969-70,ACC,17,9,0.654,8,6,0.571,8.33,4.79,75.6,72.1,NA,16,NA,NA,NA,Bucky Waters (17-9),NA,NA
+54,1968-69,ACC,15,13,0.536,8,6,0.571,7.28,4.71,82,79.4,17,9,NA,NA,NA,Vic Bubas (15-13),NA,NA
+55,1967-68,ACC,22,6,0.786,11,3,0.786,13.21,1.78,79,67.5,NA,6,10,NA,NA,Vic Bubas (22-6),NA,NA
+56,1966-67,ACC,18,9,0.667,9,3,0.75,12.75,5.59,82.8,76.1,4,4,NA,NA,NA,Vic Bubas (18-9),NA,NA
+57,1965-66,ACC,26,4,0.867,12,2,0.857,18.06,6.83,82.8,71.6,3,1,2,Lost National Semifinal,NA,Vic Bubas (26-4),NA,NA
+58,1964-65,ACC,20,5,0.8,11,3,0.786,17.31,2.71,92.4,77.8,5,5,10,NA,NA,Vic Bubas (20-5),NA,NA
+59,1963-64,ACC,26,5,0.839,13,1,0.929,19.03,4.07,84.1,69.1,4,3,3,Lost National Final,NA,Vic Bubas (26-5),NA,NA
+60,1962-63,ACC,27,3,0.9,14,0,1,16.39,2.15,83.2,69,2,2,2,Lost National Semifinal,NA,Vic Bubas (27-3),NA,NA
+61,1961-62,ACC,20,5,0.8,11,3,0.786,16.27,2.15,81.9,67.9,7,5,10,NA,NA,Vic Bubas (20-5),NA,NA
+62,1960-61,ACC,22,6,0.786,10,4,0.714,9.43,-0.89,81.5,71.2,NA,3,10,NA,NA,Vic Bubas (22-6),NA,NA
+63,1959-60,ACC,17,11,0.607,7,7,0.5,3.97,2.93,64.3,63.2,NA,16,18,Lost Regional Final,NA,Vic Bubas (17-11),NA,NA
+64,1958-59,ACC,13,12,0.52,7,7,0.5,-0.33,3.51,65.3,69.1,NA,NA,NA,NA,NA,Harold Bradley (13-12),NA,NA
+65,1957-58,ACC,18,7,0.72,11,3,0.786,6.29,1.29,69.2,65,NA,6,10,NA,NA,Harold Bradley (18-7),NA,NA
+66,1956-57,ACC,13,11,0.542,8,6,0.571,5.05,3.26,78.4,77,NA,9,NA,NA,NA,Harold Bradley (13-11),NA,NA
+67,1955-56,ACC,19,7,0.731,10,4,0.714,15.26,3.64,80.6,69.8,NA,6,17,NA,NA,Harold Bradley (19-7),NA,NA
+68,1954-55,ACC,20,8,0.714,11,3,0.786,12.94,0.13,85.2,72.8,NA,17,NA,Lost First Round,NA,Harold Bradley (20-8),NA,NA
+69,1953-54,ACC,21,6,0.778,9,1,0.9,14.37,-1.71,83.3,66.5,NA,8,15,NA,NA,Harold Bradley (21-6),NA,NA
+70,1952-53,Southern,17,8,0.68,12,4,0.75,4.01,-1.19,87.6,81.6,NA,18,NA,NA,NA,Harold Bradley (17-8),NA,NA
+71,1951-52,Southern,24,6,0.8,13,3,0.813,6.85,-4.22,77.3,67.3,NA,12,12,NA,NA,Harold Bradley (24-6),NA,NA
+72,1950-51,Southern,20,13,0.606,13,6,0.684,-5.1,-6.33,71.4,70.2,NA,NA,NA,NA,NA,Harold Bradley (20-13),NA,NA
+73,1949-50,Southern,15,15,0.5,9,7,0.563,-6.62,-7.21,58.8,58,NA,NA,NA,NA,NA,Gerry Gerard (15-15),NA,NA
+74,1948-49,Southern,13,9,0.591,5,7,0.417,NA,NA,53.5,49.5,NA,NA,NA,NA,NA,Gerry Gerard (13-9),NA,NA
+75,1947-48,Southern,17,12,0.586,8,6,0.571,NA,NA,54.2,50.4,NA,NA,NA,NA,NA,Gerry Gerard (17-12),NA,NA
+76,1946-47,Southern,19,8,0.704,10,4,0.714,NA,NA,NA,NA,NA,NA,NA,NA,NA,Gerry Gerard (19-8),NA,NA
+77,1945-46,Southern,21,6,0.778,12,2,0.857,NA,NA,NA,NA,NA,NA,NA,NA,NA,Gerry Gerard (21-6),NA,NA
+78,1944-45,Southern,13,9,0.591,6,1,0.857,NA,NA,NA,NA,NA,NA,NA,NA,NA,Gerry Gerard (13-9),NA,NA
+79,1943-44,Southern,13,13,0.5,4,2,0.667,NA,NA,NA,NA,NA,NA,NA,NA,NA,Gerry Gerard (13-13),NA,NA
+80,1942-43,Southern,20,6,0.769,12,1,0.923,NA,NA,NA,NA,NA,NA,NA,NA,NA,Gerry Gerard (20-6),NA,NA
+81,1941-42,Southern,22,2,0.917,15,1,0.938,NA,NA,NA,NA,NA,NA,NA,NA,NA,Eddie Cameron (22-2),NA,NA
+82,1940-41,Southern,14,8,0.636,8,4,0.667,NA,NA,NA,NA,NA,NA,NA,NA,NA,Eddie Cameron (14-8),NA,NA
+83,1939-40,Southern,19,7,0.731,13,2,0.867,NA,NA,NA,NA,NA,NA,NA,NA,NA,Eddie Cameron (19-7),NA,NA
+84,1938-39,Southern,10,12,0.455,8,8,0.5,NA,NA,NA,NA,NA,NA,NA,NA,NA,Eddie Cameron (10-12),NA,NA
+85,1937-38,Southern,15,9,0.625,9,5,0.643,NA,NA,NA,NA,NA,NA,NA,NA,NA,Eddie Cameron (15-9),NA,NA
+86,1936-37,Southern,15,8,0.652,11,6,0.647,NA,NA,NA,NA,NA,NA,NA,NA,NA,Eddie Cameron (15-8),NA,NA
+87,1935-36,Southern,20,6,0.769,4,5,0.444,NA,NA,NA,NA,NA,NA,NA,NA,NA,Eddie Cameron (20-6),NA,NA
+88,1934-35,Southern,18,8,0.692,10,4,0.714,NA,NA,NA,NA,NA,NA,NA,NA,NA,Eddie Cameron (18-8),NA,NA
+89,1933-34,Southern,18,6,0.75,9,4,0.692,NA,NA,NA,NA,NA,NA,NA,NA,NA,Eddie Cameron (18-6),NA,NA
+90,1932-33,Southern,17,5,0.773,7,3,0.7,NA,NA,NA,NA,NA,NA,NA,NA,NA,Eddie Cameron (17-5),NA,NA
+91,1931-32,Southern,14,11,0.56,6,5,0.545,NA,NA,NA,NA,NA,NA,NA,NA,NA,Eddie Cameron (14-11),NA,NA
+92,1930-31,Southern,14,7,0.667,5,4,0.556,NA,NA,NA,NA,NA,NA,NA,NA,NA,Eddie Cameron (14-7),NA,NA
+93,1929-30,Southern,18,2,0.9,9,1,0.9,NA,NA,NA,NA,NA,NA,NA,NA,NA,Eddie Cameron (18-2),NA,NA
+94,1928-29,Southern,12,8,0.6,5,4,0.556,NA,NA,NA,NA,NA,NA,NA,NA,NA,Eddie Cameron (12-8),NA,NA
+95,1927-28,Ind,9,5,0.643,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,George Buckheit (9-5),NA,NA
+96,1926-27,Ind,4,10,0.286,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,George Buckheit (4-10),NA,NA
+97,1925-26,Ind,8,12,0.4,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,George Buckheit (8-12),NA,NA
+98,1924-25,Ind,4,9,0.308,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,George Buckheit (4-9),NA,NA
+99,1923-24,Ind,19,6,0.76,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,J.S. Burbage (19-6),NA,NA
+100,1922-23,Ind,15,7,0.682,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,J.S. Burbage (15-7),NA,NA
+101,1921-22,Ind,6,12,0.333,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,James Baldwin (6-12),NA,NA
+102,1920-21,Ind,9,6,0.6,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Floyd Egan (9-6),NA,NA
+103,1919-20,Ind,10,4,0.714,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,W.J. Rothensies (10-4),NA,NA
+104,1918-19,Ind,6,5,0.545,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,H.P. Cole (6-5),NA,NA
+105,1917-18,Ind,10,5,0.667,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Chick Doak (10-5),NA,NA
+106,1916-17,Ind,20,4,0.833,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Chick Doak (20-4),NA,NA
+107,1915-16,Ind,9,11,0.45,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Chick Doak (9-11),NA,NA
+108,1914-15,Ind,10,10,0.5,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Noble Clay (10-10),NA,NA
+109,1913-14,Ind,12,9,0.571,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Noble Clay (12-9),NA,NA
+110,1912-13,Ind,11,8,0.579,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,J.E. Brinn (11-8),NA,NA
+111,1911-12,Ind,6,1,0.857,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Cap Card (6-1),NA,NA
+112,1910-11,Ind,4,3,0.571,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Cap Card (4-3),NA,NA
+113,1909-10,Ind,4,4,0.5,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Cap Card (4-4),NA,NA
+114,1908-09,Ind,8,1,0.889,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Cap Card (8-1),NA,NA
+115,1907-08,Ind,2,3,0.4,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Cap Card (2-3),NA,NA
+116,1906-07,Ind,4,2,0.667,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Cap Card (4-2),NA,NA
+117,1905-06,Ind,2,3,0.4,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Cap Card (2-3),NA,NA
+1,2021-22,ACC,26,9,0.743,15,5,0.75,14.6,8.03,78.5,71.9,19,18,NA,Playing Regional Semifinal,8,NA,Hubert Davis (26-9),GoodGuys
+2,2020-21,ACC,18,11,0.621,10,6,0.625,14.79,9.52,75.2,69.9,16,14,NA,Lost First Round,8,NA,Roy Williams (18-11),GoodGuys
+3,2019-20,ACC,14,19,0.424,6,14,0.3,9.45,10.05,72.2,72.8,9,5,NA,NA,NA,NA,Roy Williams (14-19),GoodGuys
+4,2018-19,ACC,29,7,0.806,16,2,0.889,23.94,11.35,85.8,73.2,8,3,3,Lost Regional Semifinal,1,NA,Roy Williams (29-7),GoodGuys
+5,2017-18,ACC,26,11,0.703,11,7,0.611,20.07,11.78,81.6,73.3,9,5,10,Lost Second Round,2,NA,Roy Williams (26-11),GoodGuys
+6,2016-17,ACC,33,7,0.825,14,4,0.778,24.84,11.76,84.4,70.6,6,3,6,Won National Final,1,NA,Roy Williams (33-7),GoodGuys
+7,2015-16,ACC,33,7,0.825,14,4,0.778,23.44,10.69,82.8,70,1,1,3,Lost National Final,1,NA,Roy Williams (33-7),GoodGuys
+8,2014-15,ACC,26,12,0.684,11,7,0.611,20.63,11.76,77.7,68.8,6,5,15,Lost Regional Semifinal,4,NA,Roy Williams (26-12),GoodGuys
+9,2013-14,ACC,24,10,0.706,13,5,0.722,15.24,8.42,76.6,69.8,12,12,19,Lost Third Round,6,NA,Roy Williams (24-10),GoodGuys
+10,2012-13,ACC,25,11,0.694,12,6,0.667,14.57,8.06,76.7,69.2,11,9,NA,Lost Third Round,8,NA,Roy Williams (25-11),GoodGuys
+11,2011-12,ACC,32,6,0.842,14,2,0.875,21.34,7.07,81.3,67.1,1,1,4,Lost Regional Final,1,NA,Roy Williams (32-6),GoodGuys
+12,2010-11,ACC,29,8,0.784,14,2,0.875,18.87,10.15,77.5,68.8,8,6,7,Lost Regional Final,2,NA,Roy Williams (29-8),GoodGuys
+13,2009-10,ACC,20,17,0.541,5,11,0.313,10.14,9.83,74.5,71.9,6,6,NA,NA,NA,NA,Roy Williams (20-17),GoodGuys
+14,2008-09,ACC,34,4,0.895,13,3,0.813,25.46,8.35,89.8,72,1,1,2,Won National Final,1,NA,Roy Williams (34-4),GoodGuys
+15,2007-08,ACC,36,3,0.923,14,2,0.875,24.17,8.12,88.6,72.5,1,1,1,Lost National Semifinal,1,NA,Roy Williams (36-3),GoodGuys
+16,2006-07,ACC,31,7,0.816,11,5,0.688,26.41,9.3,85.7,68.6,2,1,4,Lost Regional Final,1,NA,Roy Williams (31-7),GoodGuys
+17,2005-06,ACC,23,8,0.742,12,4,0.75,18.48,7.77,79.4,68.6,NA,10,10,Lost Second Round,3,NA,Roy Williams (23-8),GoodGuys
+18,2004-05,ACC,33,4,0.892,14,2,0.875,28.42,10.66,88,70.3,4,2,2,Won National Final,1,NA,Roy Williams (33-4),GoodGuys
+19,2003-04,ACC,19,11,0.633,8,8,0.5,19.4,12.04,82.1,74.8,9,4,18,Lost Second Round,6,NA,Roy Williams (19-11),GoodGuys
+20,2002-03,ACC,19,16,0.543,6,10,0.375,11.22,10.31,72.1,71.2,NA,12,NA,NA,NA,NA,Matt Doherty (19-16),GoodGuys
+21,2001-02,ACC,8,20,0.286,4,12,0.25,3.86,10.5,72.2,78.9,19,19,NA,NA,NA,NA,Matt Doherty (8-20),GoodGuys
+22,2000-01,ACC,26,7,0.788,13,3,0.813,19.95,11.77,79.1,70.9,6,1,6,Lost Second Round,2,NA,Matt Doherty (26-7),GoodGuys
+23,1999-00,ACC,22,14,0.611,9,7,0.563,17,11.8,75.4,70.2,6,2,NA,Lost National Semifinal,8,NA,Bill Guthridge (22-14),GoodGuys
+24,1998-99,ACC,24,10,0.706,10,6,0.625,16.77,10.24,71.4,64.9,11,3,13,Lost First Round,3,NA,Bill Guthridge (24-10),GoodGuys
+25,1997-98,ACC,34,4,0.895,13,3,0.813,26.67,10.38,81.9,65.6,4,1,1,Lost National Semifinal,1,NA,Bill Guthridge (34-4),GoodGuys
+26,1996-97,ACC,28,7,0.8,11,5,0.688,21.23,12,77.4,66.7,8,4,4,Lost National Semifinal,1,NA,Dean Smith (28-7),GoodGuys
+27,1995-96,ACC,21,11,0.656,10,6,0.625,18.02,11.42,77.6,71,20,8,25,Lost Second Round,6,NA,Dean Smith (21-11),GoodGuys
+28,1994-95,ACC,28,6,0.824,12,4,0.75,23.58,13.14,84.4,74,2,1,4,Lost National Semifinal,2,NA,Dean Smith (28-6),GoodGuys
+29,1993-94,ACC,28,7,0.8,11,5,0.688,22.62,9.39,85.6,72.4,1,1,1,Lost Second Round,1,NA,Dean Smith (28-7),GoodGuys
+30,1992-93,ACC,34,4,0.895,14,2,0.875,29.04,11.25,86.1,68.3,7,1,4,Won National Final,1,NA,Dean Smith (34-4),GoodGuys
+31,1991-92,ACC,23,10,0.697,9,7,0.563,18.04,10.16,83.5,75.6,8,4,18,Lost Regional Semifinal,4,NA,Dean Smith (23-10),GoodGuys
+32,1990-91,ACC,29,6,0.829,10,4,0.714,26.9,10.9,87.6,71.6,5,4,4,Lost National Semifinal,1,NA,Dean Smith (29-6),GoodGuys
+33,1989-90,ACC,21,13,0.618,8,6,0.571,15.62,10.97,82.6,77.9,7,7,NA,Lost Regional Semifinal,8,NA,Dean Smith (21-13),GoodGuys
+34,1988-89,ACC,29,8,0.784,9,5,0.643,22.73,12.41,90,79.7,6,3,5,Lost Regional Semifinal,2,NA,Dean Smith (29-8),GoodGuys
+35,1987-88,ACC,27,7,0.794,11,3,0.786,19.52,10.72,82.1,73.2,3,1,7,Lost Regional Final,2,NA,Dean Smith (27-7),GoodGuys
+36,1986-87,ACC,32,4,0.889,14,0,1,24.48,8.71,91.3,74.9,1,1,2,Lost Regional Final,1,NA,Dean Smith (32-4),GoodGuys
+37,1985-86,ACC,28,6,0.824,10,4,0.714,26.13,8.51,86.6,69,2,1,8,Lost Regional Semifinal,3,NA,Dean Smith (28-6),GoodGuys
+38,1984-85,ACC,27,9,0.75,9,5,0.643,15.33,8.13,73.5,66,NA,5,7,Lost Regional Final,2,NA,Dean Smith (27-9),GoodGuys
+39,1983-84,ACC,28,3,0.903,14,0,1,23.86,8.6,80.1,64.8,1,1,1,Lost Regional Semifinal,1,NA,Dean Smith (28-3),GoodGuys
+40,1982-83,ACC,28,8,0.778,12,2,0.857,20.14,7.7,80.7,68.6,3,1,8,Lost Regional Final,2,NA,Dean Smith (28-8),GoodGuys
+41,1981-82,ACC,32,2,0.941,12,2,0.857,20.17,8.87,66.7,55.4,1,1,1,Won National Final,1,NA,Dean Smith (32-2),GoodGuys
+42,1980-81,ACC,29,8,0.784,10,4,0.714,18.3,10.05,71.9,63.4,13,6,6,Lost National Final,2,NA,Dean Smith (29-8),GoodGuys
+43,1979-80,ACC,21,8,0.724,9,5,0.643,12.79,7.17,73.2,68,6,6,15,Lost Second Round,3,NA,Dean Smith (21-8),GoodGuys
+44,1978-79,ACC,23,6,0.793,9,3,0.75,18.54,7.51,76.5,65.4,16,2,9,Lost Second Round,1,NA,Dean Smith (23-6),GoodGuys
+45,1977-78,ACC,23,8,0.742,9,3,0.75,16.25,7.48,81.1,70.7,1,1,16,Lost First Round,NA,NA,Dean Smith (23-8),GoodGuys
+46,1976-77,ACC,28,5,0.848,9,3,0.75,20.78,9.51,83.6,72.6,3,3,5,Lost National Final,NA,NA,Dean Smith (28-5),GoodGuys
+47,1975-76,ACC,25,4,0.862,11,1,0.917,18.17,7.17,85.1,74.3,5,3,8,Lost First Round,NA,NA,Dean Smith (25-4),GoodGuys
+48,1974-75,ACC,23,8,0.742,8,4,0.667,13.96,7.99,84.6,78,11,6,9,Lost Regional Semifinal,NA,NA,Dean Smith (23-8),GoodGuys
+49,1973-74,ACC,22,6,0.786,9,3,0.75,18.42,7.87,87,75.3,5,4,12,NA,NA,NA,Dean Smith (22-6),GoodGuys
+50,1972-73,ACC,25,8,0.758,8,4,0.667,17.71,6.83,84.7,72.8,NA,3,11,NA,NA,NA,Dean Smith (25-8),GoodGuys
+51,1971-72,ACC,26,5,0.839,9,3,0.75,23.49,5.78,89.1,71.4,2,2,2,Lost National Semifinal,NA,NA,Dean Smith (26-5),GoodGuys
+52,1970-71,ACC,26,6,0.813,11,3,0.786,17.42,4.57,84.6,71.8,NA,8,13,NA,NA,NA,Dean Smith (26-6),GoodGuys
+53,1969-70,ACC,18,9,0.667,9,5,0.643,10.91,4.59,88.9,78.8,7,4,NA,NA,NA,NA,Dean Smith (18-9),GoodGuys
+54,1968-69,ACC,27,5,0.844,12,2,0.857,18.39,5.17,88.9,75.7,2,2,4,Lost National Semifinal,NA,NA,Dean Smith (27-5),GoodGuys
+55,1967-68,ACC,28,4,0.875,12,2,0.857,15.73,4.36,83.8,72.4,4,3,4,Lost National Final,NA,NA,Dean Smith (28-4),GoodGuys
+56,1966-67,ACC,26,6,0.813,12,2,0.857,14.72,3.69,82.2,NA,9,2,4,Lost National Semifinal,NA,NA,Dean Smith (26-6),GoodGuys
+57,1965-66,ACC,16,11,0.593,8,6,0.571,12.39,5.72,80.9,74.3,NA,NA,NA,NA,NA,NA,Dean Smith (16-11),GoodGuys
+58,1964-65,ACC,15,9,0.625,10,4,0.714,5.41,3.28,79.8,77.6,13,13,NA,NA,NA,NA,Dean Smith (15-9),GoodGuys
+59,1963-64,ACC,12,12,0.5,6,8,0.429,2.8,2.71,77.5,77.5,NA,NA,NA,NA,NA,NA,Dean Smith (12-12),GoodGuys
+60,1962-63,ACC,15,6,0.714,10,4,0.714,6.83,1.07,76.6,70.8,NA,10,NA,NA,NA,NA,Dean Smith (15-6),GoodGuys
+61,1961-62,ACC,8,9,0.471,7,7,0.5,2.93,3.46,72.4,72.6,NA,NA,NA,NA,NA,NA,Dean Smith (8-9),GoodGuys
+62,1960-61,ACC,19,4,0.826,12,2,0.857,11.82,0.82,76.7,65.7,NA,4,5,NA,NA,NA,Frank McGuire (19-4),GoodGuys
+63,1959-60,ACC,18,6,0.75,12,2,0.857,14.04,3.21,73.1,62.3,NA,12,NA,NA,NA,NA,Frank McGuire (18-6),GoodGuys
+64,1958-59,ACC,20,5,0.8,12,2,0.857,9.25,2.53,71.9,65.2,NA,1,9,Lost First Round,NA,NA,Frank McGuire (20-5),GoodGuys
+65,1957-58,ACC,19,7,0.731,10,4,0.714,8.75,1.87,71.8,64.9,NA,1,13,NA,NA,NA,Frank McGuire (19-7),GoodGuys
+66,1956-57,ACC,32,0,1,14,0,1,14.7,1.12,79.3,65.6,NA,1,1,Won National Final,NA,NA,Frank McGuire (32-0),GoodGuys
+67,1955-56,ACC,18,5,0.783,11,3,0.786,12.35,3.39,80,71,NA,4,13,NA,NA,NA,Frank McGuire (18-5),GoodGuys
+68,1954-55,ACC,10,11,0.476,8,6,0.571,2.22,2.65,75.8,76.1,NA,NA,NA,NA,NA,NA,Frank McGuire (10-11),GoodGuys
+69,1953-54,ACC,11,10,0.524,5,6,0.455,-3.11,-8.06,68.5,63.6,NA,NA,NA,NA,NA,NA,Frank McGuire (11-10),GoodGuys
+70,1952-53,Southern,17,10,0.63,15,6,0.714,-0.73,-5.31,NA,NA,NA,12,NA,NA,NA,NA,Frank McGuire (17-10),GoodGuys
+71,1951-52,Southern,12,15,0.444,8,11,0.421,-7.12,-4.66,NA,NA,NA,NA,NA,NA,NA,NA,Tom Scott (12-15),GoodGuys
+72,1950-51,Southern,12,15,0.444,9,8,0.529,-11.33,-8.94,NA,NA,NA,NA,NA,NA,NA,NA,Tom Scott (12-15),GoodGuys
+73,1949-50,Southern,17,12,0.586,13,6,0.684,-6.26,-8.1,57,NA,NA,NA,NA,NA,NA,NA,Tom Scott (17-12),GoodGuys
+74,1948-49,Southern,20,8,0.714,13,5,0.722,NA,NA,57.3,52.9,NA,NA,NA,NA,NA,NA,Tom Scott (20-8),GoodGuys
+75,1947-48,Southern,20,7,0.741,11,4,0.733,NA,NA,53.8,46,NA,NA,NA,NA,NA,NA,Tom Scott (20-7),GoodGuys
+76,1946-47,Southern,19,8,0.704,10,2,0.833,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Tom Scott (19-8),GoodGuys
+77,1945-46,Southern,30,5,0.857,13,1,0.929,NA,NA,NA,NA,NA,NA,NA,Lost National Final,NA,NA,Ben Carnevale (30-5),GoodGuys
+78,1944-45,Southern,22,6,0.786,11,3,0.786,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Ben Carnevale (22-6),GoodGuys
+79,1943-44,Southern,17,10,0.63,9,1,0.9,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Bill Lange (17-10),GoodGuys
+80,1942-43,Southern,12,10,0.545,8,9,0.471,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Bill Lange (12-10),GoodGuys
+81,1941-42,Southern,14,9,0.609,9,5,0.643,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Bill Lange (14-9),GoodGuys
+82,1940-41,Southern,19,9,0.679,14,1,0.933,NA,NA,NA,NA,NA,NA,NA,Lost Regional Semifinal,NA,NA,Bill Lange (19-9),GoodGuys
+83,1939-40,Southern,23,3,0.885,11,2,0.846,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Bill Lange (23-3),GoodGuys
+84,1938-39,Southern,10,11,0.476,8,7,0.533,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Walter Skidmore (10-11),GoodGuys
+85,1937-38,Southern,16,5,0.762,13,3,0.813,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Walter Skidmore (16-5),GoodGuys
+86,1936-37,Southern,18,5,0.783,14,3,0.824,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Walter Skidmore (18-5),GoodGuys
+87,1935-36,Southern,21,4,0.84,13,3,0.813,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Walter Skidmore (21-4),GoodGuys
+88,1934-35,Southern,23,2,0.92,12,1,0.923,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Bo Shepard (23-2),GoodGuys
+89,1933-34,Southern,18,4,0.818,12,2,0.857,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Bo Shepard (18-4),GoodGuys
+90,1932-33,Southern,12,5,0.706,5,3,0.625,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Bo Shepard (12-5),GoodGuys
+91,1931-32,Southern,16,5,0.762,6,3,0.667,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Bo Shepard (16-5),GoodGuys
+92,1930-31,Southern,15,9,0.625,6,6,0.5,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Jimmy Ashmore (15-9),GoodGuys
+93,1929-30,Southern,14,11,0.56,4,7,0.364,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Jimmy Ashmore (14-11),GoodGuys
+94,1928-29,Southern,17,8,0.68,12,2,0.857,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Jimmy Ashmore (17-8),GoodGuys
+95,1927-28,Southern,17,2,0.895,8,1,0.889,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Jimmy Ashmore (17-2),GoodGuys
+96,1926-27,Southern,17,7,0.708,7,3,0.7,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Jimmy Ashmore (17-7),GoodGuys
+97,1925-26,Southern,20,5,0.8,7,0,1,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Harlan Sanborn (20-5),GoodGuys
+98,1924-25,Southern,20,5,0.8,8,0,1,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Monk McDonald (20-5),GoodGuys
+99,1923-24,Southern,26,0,1,7,0,1,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Norman Shepard (26-0),GoodGuys
+100,1922-23,Southern,15,1,0.938,5,0,1,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Fred Boye (15-1),GoodGuys
+101,1921-22,Southern,15,6,0.714,3,3,0.5,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Fred Boye (15-6),GoodGuys
+102,1920-21,Ind,12,8,0.6,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Fred Boye (12-8),GoodGuys
+103,1919-20,Ind,7,9,0.438,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Fred Boye (7-9),GoodGuys
+104,1918-19,Ind,9,7,0.563,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Howell Peacock (9-7),GoodGuys
+105,1917-18,Ind,9,3,0.75,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Howell Peacock (9-3),GoodGuys
+106,1916-17,Ind,5,4,0.556,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Howell Peacock (5-4),GoodGuys
+107,1915-16,Ind,12,6,0.667,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Chick Doak (12-6),GoodGuys
+108,1914-15,Ind,6,10,0.375,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Chick Doak (6-10),GoodGuys
+109,1913-14,Ind,10,8,0.556,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Nat Cartmell (10-8),GoodGuys
+110,1912-13,Ind,4,7,0.364,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Nat Cartmell (4-7),GoodGuys
+111,1911-12,Ind,4,5,0.444,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Nat Cartmell (4-5),GoodGuys
+112,1910-11,Ind,7,4,0.636,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Nat Cartmell (7-4),GoodGuys
