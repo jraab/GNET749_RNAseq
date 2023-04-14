@@ -102,4 +102,25 @@ ToothGrowth
 # How about observations for supplement + dose (# you can group_by on two or more things)
 # What is the average tooth length (overall, and per supplment/dose)
 # Filter out samples with ToothGrowth < 20
+# How many observations for each supplement
+ToothGrowth |> 
+   group_by(supp) |> 
+   count() 
+# How about observations for supplement + dose (# you can group_by on two or more things)
+ToothGrowth |> 
+   group_by(supp, dose) |> 
+   count() 
+# What is the average tooth length (overall, and per supplement/dose)
+mean(ToothGrowth$len)
+ToothGrowth |> 
+   group_by(supp, dose) |> 
+   summarise(mean_tooth = mean(len))
+# Filter out samples with ToothGrowth < 20
+ToothGrowth |> 
+   filter(len < 20 )
+# add a column if toothgrowth > 20 
+ToothGrowth |> 
+   mutate(greater_than_20  = len > 20 )
 
+ToothGrowth |> 
+   mutate(greater_than_20  = ifelse( len > 20 , 'hooray', 'oh no'  ) )

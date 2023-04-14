@@ -4,7 +4,7 @@
 #install.packages('tidyverse')
 
 # Loading packages
-
+library(tidyverse)
 
 # What is loaded  - Good to run at the end
 
