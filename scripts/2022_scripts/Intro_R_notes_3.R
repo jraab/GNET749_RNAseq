@@ -6,25 +6,24 @@ library(tidyverse)
 # drug_norm_counts.csv
 # drug_samples.csv
 
-counts <- read_csv('/Users/jraab/GitHub/GNET749_RNAseq/data/drug_norm_counts.csv')
-sample_info <- read_csv('/Users/jraab/GitHub/GNET749_RNAseq/data/drug_samples.csv')
+counts <- read_csv('data/drug_norm_counts.csv')
+sample_info <- read_csv('data/drug_samples.csv')
 sample_info
 
 # How many treatments are there
-sample_info %>% group_by(treatment) %>% summarise(n())
+sample_info %>% group_by(treatment) %>% count()
 table(sample_info$genotype)
 # How Many genotypes
-sample_info %>% group_by(genotype) %>% summarise(n())
+sample_info %>% group_by(genotype) %>% count() 
 table(sample_info$genotype)
 
 # How many of each combination
-sample_info %>% group_by(genotype, treatment) %>% summarise(n()) 
+sample_info %>% group_by(genotype, treatment) %>% count() 
 table(sample_info$genotype, sample_info$treatment)
 
 # Make simple plots for a few genes to see if there is a difference
-genes - c('MCRS1', 'MAP3K7', 'ARID2')
-# Make the count data long style then include sample information 
 
+# Make the count data long style then include sample information 
 counts_l <- counts %>% 
    pivot_longer(names_to = 'samples', values_to = 'counts', -rowname)
 # Join with sample information
