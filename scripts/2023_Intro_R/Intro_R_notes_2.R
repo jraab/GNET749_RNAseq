@@ -1,110 +1,187 @@
 #Intro to R - Class two
- 
-# Review of plotting
-library(tidyverse)
-data('ToothGrowth')
-ToothGrowth
-# Take 10 minutes to explore the toothgrowth data and answer some questions
-
-# How many observations are there for each treatment
-# How many for each dose
-# How many treat/dose
-
-#multiple ways to do this
-ToothGrowth %>% 
-   group_by(supp) %>% 
-   summarise(count = n())
-
-ToothGrowth %>% 
-   group_by(dose) %>% 
-   summarise(count = n())
-
-ToothGrowth %>% 
-   group_by(supp, dose) %>% 
-   summarise(count = n())
-
-# Can do this with a base function easily
-table(ToothGrowth$supp)
-table(ToothGrowth$dose)
-table(ToothGrowth$dose, ToothGrowth$supp)
-
-#What is the average length for each dose, is it different for each treatment at each dose
-ToothGrowth %>% 
-   group_by(dose) %>% 
-   summarise(u_len = mean(len))
-
-ToothGrowth %>% 
-   group_by(dose, supp) %>% 
-   summarise(u_len = mean(len))
-
-# Make some plots
-# Does treatment affect ToothGrowth
-
-ToothGrowth %>% 
-   ggplot(aes(x = as.factor(dose), y = len, color = supp) ) + 
-   geom_point(position  = position_jitterdodge(jitter.width = 0.05))
-
-ToothGrowth %>% 
-   ggplot(aes( x = as.factor(dose), y = len, fill = supp)) + 
-   geom_boxplot()
-
-ToothGrowth %>% 
-   ggplot(aes( x = as.factor(dose), y = len, fill = supp)) + 
-   geom_violin() + 
-   geom_boxplot(position = position_dodge(width = 0.9), width = 0.1, color = 'grey30')
+################################################################################
+### RECAP/PRACTICE FROM CLASSS 1        ######################################## 
+# NYC Flights practcice - recap of class 1
+#install.packages('nycflights13') 
+library(nycflights13)
+flights
 
 
-# Make a bar plot of the average  length of each treatment/dosage - reuse what you learned above
- ToothGrowth %>% 
-   group_by(dose, supp) %>% 
-   summarise(u_len = mean(len)) %>% 
-   ggplot(aes( x= as.factor(dose), y = u_len, fill = supp)) + 
-   geom_col(position = 'dodge', col = 'grey30')
- 
- 
-# add some points b/c dynamite plots without points are bad
-# Geoms can take a different data frame as an argument -hint
- 
-ToothGrowth %>% 
-   group_by(dose, supp) %>% 
-   summarise(u_len = mean(len)) %>% 
-   ggplot(aes( x= as.factor(dose), y = u_len, fill = supp)) + 
-   geom_col(position = 'dodge', col = 'grey30') + 
-   geom_point(data = ToothGrowth, aes(x = as.factor(dose),y = len), 
-              color = 'grey30', 
-              position = position_jitterdodge(jitter.width =0.1))
+#How many flights originated at each airport
+flights |> 
+  group_by(origin) |> 
+  count() 
 
-#Tidy Data ############################################################################
-us_rent_income
-us_rent_wide <- us_rent_income %>% pivot_wider(names_from = variable, values_from = estimate, id_cols = c(-GEOID, -moe) ) 
-us_rent_wide 
-us_rent_long <- us_rent_wide %>% pivot_longer(names_to = 'variable', cols = -NAME) 
-us_rent_long
+# How long was the average flight that left EWR
+flights |> 
+  filter(origin == 'EWR') |> 
+  group_by(origin) |> 
+  summarise(mean_flight_legth = mean(air_time, na.rm = T) )  
 
-# Sometimes the wide form allow a specific plot that would be hard to make otherwise
-# Or a specific calculation
- # For each state, what percentage of income is rent
-us_rent_wide %>% 
-   mutate(rent_to_income = rent/income) 
+# what airport had the longest average arrival delay
+flights |> 
+  group_by(dest) |> 
+  summarise(mean_delay = mean(arr_delay, na.rm = T) ) |> 
+  arrange(desc( mean_delay) ) 
+
+# Which carrier had the most departure delays ( dep_delay > 0)
+flights |> 
+  filter(dep_delay > 0) |> 
+  group_by(carrier) |> 
+  count()   |> 
+  arrange(desc(n) ) 
+
+#How many flights per month 
+flights |> 
+  group_by(month) |> 
+  count() 
+################################################################################
+# Pivoting
+library(tidyverse) # you probably already have this loaded but I'm breaking this script up by topic
 
 
-us_rent_long %>% 
-   group_by(NAME) %>% 
-   mutate(income = max(value)) %>%  # Cheater line, what if rent was higher than income
-   mutate(percent_income = value/income) %>% 
-   filter(!variable == 'income') 
-# Cheats a bit , not a clear
+iris  # not tidy data -  each row has observations for mulitple measurements
+iris_long <- pivot_longer(iris, names_to = 'measurement', values_to = 'vals', cols = -Species)
+iris_long |> ggplot(aes(x = measurement, y = vals)) + geom_boxplot()
+# can go the other way too 
+iris_wide <- pivot_wider(iris_long,  id_cols = Species, names_from = measurement, values_from = vals)
+# why doesn't this work - because now each row isn't unique
+iris_wide <- iris |> rowid_to_column() |> 
+  pivot_longer(names_to = 'measurement', values_to = 'vals', cols = c(-Species,-rowid) ) |> 
+  pivot_wider(id_cols = c(rowid, Species), names_from =  measurement, values_from = vals) 
 
-# What is the relationship between rent and income
-us_rent_wide %>% 
-   ggplot(aes(x = rent, y = income)) + geom_point()
 
-# Very common to pivot data when dealing with gene expression 
-# File availalbe at github.com/jraab/GNET749_RNAseq
-gm <- read_csv('~/GitHub/GNET749_RNAseq/GM_results_countnorm.csv')
-gm %>% ggplot(aes (x = Gm10847, y = Gm10851)) + geom_point()
-gm_long <- gm %>% 
-   pivot_longer(cols = -rowname, names_to = 'sample') 
+################################################################################
+## PLOTTING  ################################################################### 
+# Now for more fun - plotting
+library(tidyverse) # includes ggplot2
+
+### Lets look at the data - Plotting --------------------------------------------------
+colnames(iris) # here are the names of our columns - we'll use these to plot
+ggplot(iris, aes( x = Sepal.Length, y = Sepal.Width)) + geom_point()
+
+# ggplot is very powerful, you can add things to the plots very easily
+# Let's make each points color match its species - assign Species to the color aesthetic
+ggplot(iris, aes( x = Sepal.Length, y = Sepal.Width, color = Species)) + 
+  geom_point()  
+
+# What if we want each speices on its own plot - use facet_wrap/facet_grid 
+ggplot(iris, aes( x = Sepal.Length, y = Sepal.Width, color = Species)) + 
+  geom_point() +  
+  facet_wrap(~Species)
+
+# How about adding a regression line
+ggplot(iris, aes( x = Sepal.Length, y = Sepal.Width, color = Species)) + 
+  geom_point()  +  
+  facet_wrap(~Species) + 
+  geom_smooth(method = 'lm')
+
+
+#You can do even calculations right in the plot call 
+# Plot sepal.area vs petal.area. 
+ggplot(iris, aes( x = Sepal.Length*Sepal.Width, y = Petal.Length*Petal.Width, color = Species)) + 
+  geom_point()
+
+# What if we want to make a different kind of plot
+# use a different geom
+# points
+ggplot(iris, aes( x = Species, y = Sepal.Length)) + 
+  geom_point()
+# jitter
+ggplot(iris, aes( x = Species, y = Sepal.Length)) + 
+  geom_jitter()
+# change width
+ggplot(iris, aes( x = Species, y = Sepal.Length)) + 
+  geom_jitter(width = 0.1)
+#boxplot
+ggplot(iris, aes( x = Species, y = Sepal.Length)) + 
+  geom_boxplot()
+
+# You can even combine mutliple geom's - make a box plot with points on top
+ggplot(iris, aes( x = Species, y = Sepal.Length)) + 
+  geom_boxplot() + 
+  geom_point()
+
+#jitter the points
+ggplot(iris, aes( x = Species, y = Sepal.Length)) + 
+  geom_boxplot() + 
+  geom_jitter(width =0.1)
+
+# Aggregate some data so we have speices averages
+iris_summary <- iris |> group_by(Species) |> 
+  summarise (mean_sepal_width= mean(Sepal.Width), 
+             sd_sepal_width = sd(Sepal.Width) ) 
+
+#Make a barplot
+iris_summary |> 
+  ggplot(aes(x = Species, y = mean_sepal_width)) + 
+  geom_col() + 
+
+# Dynamite plot
+iris_summary |> 
+  ggplot(aes(x = Species, y = mean_sepal_width)) + 
+  geom_col() + 
+  geom_errorbar(aes(ymin = mean_sepal_width-sd_sepal_width, 
+                    ymax = mean_sepal_width+sd_sepal_width) ) 
+
+# Make it look better
+iris_summary |> 
+  ggplot(aes(x = Species, y = mean_sepal_width)) + 
+  geom_col(fill = 'grey90', color = 'grey20') + 
+  geom_errorbar(aes(ymin = mean_sepal_width-sd_sepal_width, 
+                    ymax = mean_sepal_width+sd_sepal_width), 
+                width = 0.1) 
+###### Lets talk about how to make plots prettier  ########################
+
+# add a nicer theme (theme_bw)
+iris_summary |> 
+  ggplot(aes(x = Species, y = mean_sepal_width)) + 
+  geom_col(fill = 'grey90', color = 'grey20') + 
+  geom_errorbar(aes(ymin = mean_sepal_width-sd_sepal_width, 
+                    ymax = mean_sepal_width+sd_sepal_width), 
+                width = 0.1) +
+  theme_bw()
+
+#change to classic
+iris_summary |> 
+  ggplot(aes(x = Species, y = mean_sepal_width)) + 
+  geom_col(fill = 'grey90', color = 'grey20') + 
+  geom_errorbar(aes(ymin = mean_sepal_width-sd_sepal_width, 
+                    ymax = mean_sepal_width+sd_sepal_width), 
+                width = 0.1) +
+  theme_classic()
+
+#make it look awful
+iris_summary |> 
+  ggplot(aes(x = Species, y = mean_sepal_width)) + 
+  geom_col(fill = 'grey90', color = 'grey20') + 
+  geom_errorbar(aes(ymin = mean_sepal_width-sd_sepal_width, 
+                    ymax = mean_sepal_width+sd_sepal_width), 
+                width = 0.1) +
+  ggthemes::theme_excel()
+
+# change the panel grids
+iris_summary |> 
+  ggplot(aes(x = Species, y = mean_sepal_width)) + 
+  geom_col(fill = 'grey90', color = 'grey20') + 
+  geom_errorbar(aes(ymin = mean_sepal_width-sd_sepal_width, 
+                    ymax = mean_sepal_width+sd_sepal_width), 
+                width = 0.1) +
+  theme_bw() + 
+  theme(panel.grid = element_line(linetype = 'dashed', color = 'steelblue') ) 
+
+
+
+# Make the bars the color you want
+iris_summary |> 
+  ggplot(aes(x = Species, y = mean_sepal_width, fill = Species)) + 
+  geom_col() + 
+  theme_bw() + 
+  theme(panel.grid = element_blank(), 
+        axis.text.x = element_text(size = 24, family = 'serif')) + 
+  scale_fill_manual(values = c('steelblue', 'forestgreen', 'goldenrod'))
+
+
 
 # Relational Data#############################################################################       
 # Goal is to explain functions / merges / aggregating data / more advanced wrangling
@@ -130,53 +207,65 @@ flights_small
 # Notice some data is missing, always keep an eye out for this and think about how to deal
 #average speed by number of engines
 flights_small %>% 
-   group_by(engines) %>% 
-   summarise(mean_speed = mean(speed) )
+  group_by(engines) %>% 
+  summarise(mean_speed = mean(speed) )
 # why didn't that work (NAs)
 flights_small %>% 
-   group_by(engines) %>% 
-   summarise(mean_speed = mean(speed, na.rm = T) )
+  group_by(engines) %>% 
+  summarise(mean_speed = mean(speed, na.rm = T) )
 #
 flights_small %>% 
-   filter(engines == 3)
+  filter(engines == 3)
 
 # how long are flights for different sized planes
 flights_small %>% 
-   ggplot(aes(x = seats, y =distance)) + geom_point()
+  ggplot(aes(x = seats, y =distance)) + geom_point()
 
 flights_small %>% 
-   mutate(capacity = cut(seats, breaks = 10 ) ) %>% 
-   ggplot(aes(x = capacity, y = distance)) + geom_boxplot()
+  mutate(capacity = cut(seats, breaks = 10 ) ) %>% 
+  ggplot(aes(x = capacity, y = distance)) + geom_boxplot()
+
+
+################################################################################
+#Class exercise time
+# Importing Data
+# Data sets from sports-reference.com
+# see clean_duke_unc.R to see how I merged the data and cleaned it u  p
+comb <- read_csv('data/duke_unc_hoops.csv')
+
+#Use geom_density to plot which team has a better win distribution
+comb |> 
+  ggplot(aes(x = overall_w_l_percent, color = team) ) + 
+  geom_density() 
+
+# Look at this by boxplot
+comb |> 
+  ggplot(aes(y = overall_w_l_percent, x = team, color = team) ) + 
+  geom_boxplot(notch = T) 
+# conclusive proof that UNC > Duke
+# Fine probaby not significant
+# use glimpse to get a quick view of the data
+comb |> glimpse
+
+# Does pre-season ranking predict post-season ranking
+comb |> 
+  ggplot(aes(x = ap_pre, y = ap_final, color = team)) + 
+  geom_point()
+
+# lots of missing data - why?
+table(is.na(comb$ap_final), comb$team)
+
+# if one is NA - gets removed; hhow to deal
+# Lets make up a number, 26 and put all unranked there
+comb |> 
+  mutate(ap_pre = ifelse(is.na(ap_pre), 26, ap_pre), 
+         ap_final = ifelse(is.na(ap_final), 26, ap_final)) |> 
+  ggplot(aes( x = ap_pre, y = ap_final, color = team)) + 
+  geom_point()
 
 
 
-# Functions ################################################################################ 
-#Simple function to add two numbers together
-add <- function(x, y) {
-  return(x + y)  
-}
-add(1,2)
 
-# make a simple data frame
-make_df <- function(){
-   df <- data.frame(a = rnorm(10), b = rnorm(10), c = c(rep('a',5), rep('b', 5) ) )
-   return(df)  
-}
- 
-make_df()
 
-# Change it so that it makes it however many rows long you want
-make_df <- function(rows){
-   df <- data.frame(a = rnorm(rows), b = rnorm(rows), c = c(rep('a',rows/2), rep('b', rows/2) ) )
-   return(df)  
-}
-make_df(4) 
-make_df(30)
 
-get_sig_results <- function(deseq_res, threshold = 0.1) { 
-   out <- as_tibble(deseq_res)%>%
-     rownames_to_column(var = 'gene') %>%
-      filter(padj < threshold)
-   return(out)
-   }
 
