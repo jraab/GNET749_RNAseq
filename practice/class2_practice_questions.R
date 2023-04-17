@@ -3,6 +3,8 @@
 # Using nycflights 13 package
 # Do the calculations and think if there is an effective plot to show your result
 
+# What airport had the highest average wind
+
 
 #Wait - what? who had 1000+ mile an hour windspeed
 
