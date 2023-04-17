@@ -4,6 +4,7 @@
 # NYC Flights practcice - recap of class 1
 #install.packages('nycflights13') 
 library(nycflights13)
+nycflights13::
 flights
 
 
@@ -196,7 +197,7 @@ airports
 planes
 
 # make data a little smaller so we can see better
-flights_small <- flights %>% select(flight, tailnum, air_time, distance, origin, dest) 
+flights_small <- flights |> select(flight, tailnum, air_time, distance, origin, dest) 
 flights_small
 # We want to answer questiosn about how long flights are based on the type of plane
 # We have tail numbers for all planes, but we don't know what those planes are
@@ -206,23 +207,23 @@ flights_small
 
 # Notice some data is missing, always keep an eye out for this and think about how to deal
 #average speed by number of engines
-flights_small %>% 
-  group_by(engines) %>% 
+flights_small  |>  
+  group_by(engines) |> 
   summarise(mean_speed = mean(speed) )
 # why didn't that work (NAs)
-flights_small %>% 
-  group_by(engines) %>% 
+flights_small |> 
+  group_by(engines) |> 
   summarise(mean_speed = mean(speed, na.rm = T) )
 #
-flights_small %>% 
+flights_small |> 
   filter(engines == 3)
 
 # how long are flights for different sized planes
-flights_small %>% 
+flights_small |> 
   ggplot(aes(x = seats, y =distance)) + geom_point()
 
-flights_small %>% 
-  mutate(capacity = cut(seats, breaks = 10 ) ) %>% 
+flights_small |> 
+  mutate(capacity = cut(seats, breaks = 10 ) ) |> 
   ggplot(aes(x = capacity, y = distance)) + geom_boxplot()
 
 
