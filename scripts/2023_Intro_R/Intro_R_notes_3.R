@@ -1,5 +1,7 @@
 # Class 3 
 # RECAP OF TIDY/PLOTTING/RELATIONAL DATA
+# Cover factors/strings - multi level plottig - practice with  relational data
+# 
 # Review of plotting
 library(tidyverse)
 data('ToothGrowth')
