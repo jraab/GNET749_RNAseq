@@ -84,7 +84,7 @@ samples_file <- 'data/drug_samples.csv')
 
 # geom violin?
 
-# combine?
+# combine violin with a box?
 
 # Lets look at expresion of a specific gene 
 # Plot the expression of MCRS1 - what plot would be informative
