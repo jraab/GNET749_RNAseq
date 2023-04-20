@@ -9,17 +9,17 @@
 library(tidyverse) 
 library(DESeq2) # main package for differential expression
 library(tximport) # Helper functions for reading in count data 
-#library(biomaRt) # for mapping transcript IDs to genes
-# we used to use the above and it has probalby more genomes, but annotables, below, is simpler
 #install.packages('devtools')
 #devtools::install_github('stephenturner/annotables')
 library(annotables)
+#library(biomaRt) # for mapping transcript IDs to genes - I use annotables now
+
 # Import design data
-design <- read_csv('/Users/jraab/GitHub/GNET749_RNAseq/data/class_data_info.csv') 
+design <- read_csv('data/class_data_info.csv') 
 design
 # This line creates a new column to keep track of where each Salmon output file is
 # file.path makes sticks the arguments together with / between them to make path names
-design$path <- file.path('/Users/jraab/GitHub/GNET749_RNAseq/data/salmon', paste0(design$Sample, '_decoy_quant'), 'quant.sf')
+design$path <- file.path('data/salmon', paste0(design$Sample, '_decoy_quant'), 'quant.sf')
 design 
 
 
@@ -58,6 +58,5 @@ res_df <- as.data.frame(res) %>% rownames_to_column()
 res_df <- res_df |> left_join(annotables::grch38, by = c('rowname' = 'ensgene'))
 res_df
 write_tsv(res_df, 'class_data_results.tsv')
+  
 
-
-DES
