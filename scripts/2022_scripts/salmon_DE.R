@@ -7,10 +7,13 @@
 
 # As always, start by loading needed libraries
 library(tidyverse) 
+# If you need to install DESeq or tximport use bioconductor
+#install.packages('BiocManager') # This installs the function to use Bioconductor
+#BiocManager::install(c('DESeq2', 'tximport') ) # This installs DESEq and tximport
 library(DESeq2) # main package for differential expression
 library(tximport) # Helper functions for reading in count data 
 #install.packages('devtools')
-#devtools::install_github('stephenturner/annotables')
+devtools::install_github('stephenturner/annotables')
 library(annotables)
 #library(biomaRt) # for mapping transcript IDs to genes - I use annotables now
 
@@ -25,6 +28,7 @@ design
 
 # Import Salmon quant files
 txi <- tximport(design$path, type = 'salmon', tx2gene = annotables::grch38_tx2gene, ignoreTxVersion = T)
+library(tximport)
 txi$counts %>% head()
 colnames(txi$counts) <- design$Sample
 colnames(txi$counts)
@@ -42,7 +46,7 @@ assays(dds)$avgTxLength
 # is very easy if you have a simple experimental design and analysis approach
 ###############################################################################
 des <- DESeq(dds) # This runs all the DESeq steps
-res <- results(des) # this returns a DESeq results object
+res <- results(des, ) # this returns a DESeq results object
 summary(res)
 
 ################################################################################
@@ -53,10 +57,11 @@ summary(res)
 # We are going to save our deseq results object so we can use it for additional QC/Visualization
 save(des, res , file = 'data/DE_output.Rda')
 res_df <- as.data.frame(res) %>% rownames_to_column()
+res_df
 # Now your results have ensembl names, but maybe not names you'd like
 # lets use merging to bring that information in 
 res_df <- res_df |> left_join(annotables::grch38, by = c('rowname' = 'ensgene'))
-res_df
+res_df |> head()
 write_tsv(res_df, 'class_data_results.tsv')
   
 
