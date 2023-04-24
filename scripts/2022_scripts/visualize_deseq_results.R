@@ -1,19 +1,19 @@
 # Visualizing DESeq Results
 library(tidyverse)
 library(DESeq2) 
-BiocManager::install('apeglm') # need this to shrink log fold changes using method = 'apeglm'
+#BiocManager::install('apeglm') # need this to shrink log fold changes using method = 'apeglm'
 # Load our data from DESeq analysis
 load(file = 'data/DE_output.Rda')
 # Has two variables (des, res) 
 # Investigate the output
 resultsNames(des)
 design(des)
-summary(res) # this shows 28 genes go up and ~15 go down 
+summary(res) # this shows 43 genes go up and ~23 go down 
 #at an adjusted  p-value of 0.1
  
 # MA Plot 
 DESeq2::plotMA(res )
-DESeq2::plotMA(res, ylim = c(-10,10)) 
+DESeq2::plotMA(res, ylim = c(-20,)) 
 #(notice the high lfc in the lower expression)
 # This is likely a poor estimate of the true fold chnage ( low expression with inflated lfc)
 # Need to specify which coefficient from our linear model to shrink
@@ -79,8 +79,10 @@ sdf |>
 #Still have ensembl gene names
 #use annotables to fix this
 anno_df <- annotables::grch38 |> dplyr::select(ensgene, symbol) 
+anno_df
 sdf <- sdf |> left_join(anno_df, by = c('rowname' = 'ensgene'), multiple='first')
 top_10 <- sdf %>% arrange(padj) %>% head(10)
+top_10
 sdf |>  
   ggplot(aes(x = log2FoldChange, y = -log10(padj), color = padj < 0.1)) +
   geom_point() + 
@@ -100,16 +102,18 @@ sdf %>%
 #Need to change the names in the original rownames of the des
 rn <- rownames(des)
 rn_df <- data.frame(ensgene = rn) 
+rn_df
 # select just hte columns we want
 
 rn_df <- left_join(rn_df, anno_df, by = 'ensgene', multiple='first' )
 # multiple= 'first' , there are a few ens genes with more than one annotatation - this takes the first so that rownames match
 rownames(des) <- rn_df$symbol
-top_10
+
 # Plot some of these using plotCounts
-plotCounts(des, gene = 'DDX3Y', intgroup = 'Group', norm = T) # DDX3Y
+DESeq2::plotCounts(des, gene = 'DDX3Y', intgroup = 'Group', norm = T) # DDX3Y
 plotCounts(des, gene = 'POP1', intgroup = 'Group', norm = T)
-plotCounts(des, gene = 'DDX3X', intgroup  = 'Group', norm = T) 
+plotCounts(des, gene = 'DDX3X', intgroup  = 'Group', norm = T, returnData = T) |> 
+  ggplot(aes(x = Group, y = count)) + geom_boxplot()
 
 # Threshold by an arbitrary logfoldchange cutoff
 res_filt <- results(des, lfcThreshold = abs(1) )

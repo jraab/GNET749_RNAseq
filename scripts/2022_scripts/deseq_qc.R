@@ -10,6 +10,7 @@ load('data/DE_output.Rda')
 des <- estimateSizeFactors(des)
 # get the raw count data
 raw <- counts(des) 
+assays(des)$counts
 normalized <- counts(des, normalize = T)
 sample_info <- colData(des) |> as.data.frame() # gets the sample information from the summarized experiment
 sample_info
@@ -92,6 +93,7 @@ sample_df <- colData(vst)
 sample_df
 anno_df <- sample_df |> as.data.frame() |> dplyr::select(Sample, Group) 
 #heatmap of similarities between samples - 
+#library(ComplexHeatmap)
 hm_anno <-  HeatmapAnnotation(df  = sample_df$Group, col = list(df =c('A' = 'goldenrod', 'B' = 'steelblue') ) )
 # Heatmap comes from ComplexHeatmap
 Heatmap(cor_samples, top_annotation = hm_anno) 
@@ -114,6 +116,7 @@ pc_plot <- plotPCA(swi_vst, intgroup = 'condition', returnData = T)
 pc_plot
 
 pc_plot <- pc_plot  |> left_join(as.data.frame(colData(swi_dds)), by = c('name' = 'samples') ) 
+pc_plot
 pc_plot |> 
   ggplot(aes(x = PC1, y = PC2, color = group, shape = rep) ) + 
   geom_point(size = 3)
