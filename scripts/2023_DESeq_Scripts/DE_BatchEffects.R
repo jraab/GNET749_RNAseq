@@ -16,7 +16,7 @@ design(swi_dds)
 # make a second dds to correct 
 swi_dds_correct <- swi_dds
 # condition of interest should always be last (so batch first)
-design(swi_dds_correct) <- formula(~batch + condition)
+design(swi_dds_correct) <- formula(~rep + condition)
 # The last part of the formula is the condition that is being tested for 
 
 #Now use VST and PCA to look for batch effects
@@ -33,23 +33,28 @@ pp %>%
 #Now its clear that there is a batch effect
 # Lets compare results accounting for batch and ignoring batch
 # DEseq with batch accounted for
-
-cdata <- colData(swi_dds_correct)
+swi_dds
+cdata <- colData(swi_dds)
 cdata <- cdata |> as.data.frame() |> mutate(rep = as.factor(rep), 
                                             condition = as.factor(condition) ) 
 
-colData(swi_dds_correct)$rep <- as.factor(colData(swi_dds_correct)$rep) 
-colData(swi_dds_correct)
+colData(swi_dds)$rep <- as.factor(colData(swi_dds)$rep) 
+colData(swi_dds)
 
-design(swi_dds_correct) <- formula( ~ rep + condition ) 
-design(swi_dds_correct)
-swi_dds_correct <- DESeq(swi_dds_correct)
-# DESEq without batch accounted for
+design(swi_dds) <- formula( ~ rep + condition ) 
+design(swi_dds)
 swi_dds <- DESeq(swi_dds)
+# DESEq without batch accounted for
+swi_dds_uncorrected <- swi_dds
+design(swi_dds_uncorrected) <- formula(~ condition)
+design(swi_dds_uncorrected)
+swi_dds <- DESeq(swi_dds_uncorrected)
 
 
-res_swi_correct <- results(swi_dds_correct, contrast  = c('condition', 'Brg1', 'NS') ) 
-res_swi_uncorrected  <- results(swi_dds, contrast = c('condition', 'Brg1', 'NS') )                        
+resultsNames(swi_dds)
+resultsNames(swi_dds_uncorrected)
+res_swi_correct <- results(swi_dds, contrast  = c('condition', 'Brg1', 'NS') ) 
+res_swi_uncorrected  <- results(swi_dds_uncorrected, contrast = c('condition', 'Brg1', 'NS') )                        
 
 
 
@@ -96,6 +101,7 @@ pbatch |>
 #  Here, we'll try SVA - surrogate variable analysis.
 # we need to give it a full model with our variables of interest, here just condition
 cdata <- colData(swi_dds)
+cdata
 full <- model.matrix(~condition, data = cdata)
 full
 # and a reduced model with any remaining variables, here just the intercept (1) 
@@ -105,12 +111,13 @@ reduced
 dat <- counts(swi_dds, normalized = T) 
 # And remove any very lowly expressed genes since the won't e informative
 idx <- rowMeans(dat) > 1
+idx
 table(idx)
 dat <- dat[idx,]
 # now we use sva on our count data, comparing the full and reduced model
 # We are asking sva to create new variables that preserve the effect of interest but remove others
 
-svobj <- sva::svaseq(dat, full, reduced) # we can ad the number of surrogate variables here as n.sv = , but I"m leaving it to sva to estimate
+svobj <- sva::svaseq(dat, full, reduced, ) # we can ad the number of surrogate variables here as n.sv = , but I"m leaving it to sva to estimate
 svobj # this gave 2 surrogate variable
 svobj$sv # and a value for each of these, we can think of them as weights that can be added to DESeq2
 
