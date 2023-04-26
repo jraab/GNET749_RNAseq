@@ -14,7 +14,7 @@ load('data/GSE102560_dds.Rda')
 
 
 # Here is our data converted to a DESeq Dataset
-dds <- DESeqDataSetFromMatrix(mat, colData = design, design = ~ condition) 
+dds$condition
 dds$condition <- relevel(dds$condition, 'NS')  
 
 
@@ -34,7 +34,7 @@ res_brm <- lfcShrink(dds, coef = 3, res= res_brm, type = 'apeglm')
 res_double <- lfcShrink(dds, coef = 4, res= res_double, type = 'apeglm')
 
 # saving these data for enrichment analysis
-write_csv(as.data.frame(res_brg) %>% rownames_to_column() , file = 'data/results_brg1.csv') 
+write_csv(as.data.frame(res_brg) |> rownames_to_column() , file = 'data/results_brg1.csv') 
 write_csv(as.data.frame(res_brm) %>% rownames_to_column(), file = 'data/results_brm.csv')
 write_csv(as.data.frame(res_double) %>% rownames_to_column(), file = 'data/results_double.csv') 
 
@@ -58,8 +58,8 @@ resultsNames(dds_beta)
 # listValues() lets you specify what value you will multiply each coefficent by
 x <- results(dds_beta, contrast = list('conditionBrg1', c('conditionNS', 'conditionBrm', 'conditionDouble')),
                                listValues = c(1, -1/3 ) )
-x
-plotCounts(dds_beta, gene = 'SMARCA4', intgrou = 'condition')
+x |> as.data.frame() |> rownames_to_column() |> arrange(padj)
+plotCounts(dds_beta, gene = 'BMP6', intgroup = 'condition')
 # This comparison asks which genes are differential expressed in BRG1 relative to the average of the other 3 groups
 #
 # This is possibly better if you have many potential pair-wise comparisons
@@ -116,6 +116,7 @@ dds_treat <- DESeq(dds, test = 'LRT', full = ~ genotype + treat, reduced = ~geno
 resultsNames(dds_treat)
 res_treat <- lfcShrink(dds_treat, contrast= c('treat', 'EB', 'ES'), type = 'ashr' )
 res_treat
+summary(res_treat)
 # This will give us p-values for genes that have a treatment effect
 
 res_genotype2 <- lfcShrink(dds_treat, contrast = c('genotype' , 'ARID2', 'WT'), type = 'ashr') 
@@ -152,7 +153,7 @@ res_interaction %>%
    rownames_to_column() %>%
    arrange(padj) %>%head(20) 
 
-plotCounts(dds_interaction, gene = 'Srp54b', intgroup = c('genotype', 'treat' ), returnData=T) %>%
+plotCounts(dds_interaction, gene = 'Podxl', intgroup = c('genotype', 'treat' ), returnData=T) %>%
    ggplot(aes(x = genotype, y = count, color = treat ))  + geom_point() + 
    facet_wrap(~treat) 
 
