@@ -3,7 +3,7 @@
 library(tximeta)
 library(tidyverse)
 library(DESeq2)
-
+# possibly needed to fix a bug on some versions of R
 #devtools::install_github("RobinHankin/Brobdingnag")
 # Import design data 
 cdata <- read_csv('data/class_data_info.csv') 
