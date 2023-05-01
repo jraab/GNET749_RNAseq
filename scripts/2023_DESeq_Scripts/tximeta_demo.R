@@ -1,5 +1,4 @@
 # using tximeta
-
 library(tximeta)
 library(tidyverse)
 library(DESeq2)
@@ -18,4 +17,5 @@ se <- tximeta::tximeta(cdata)
 se
 
 gse <- summarizeToGene(se)
+gse
 rowRanges(gse)

@@ -43,7 +43,7 @@ gene.df <- bitr(brg_res$rowname, fromType = "SYMBOL",
 # Annotables could also be used if it has the annotations you want
 # Depending on which approach you use, you'll need to make sure column names line up in the code below
 anno.df <- brg_res |> left_join(annotables::grch38, by = c('rowname' = 'symbol'))
-anno.df |> filter(is.na(entrez)) |> count()
+anno.df |> dplyr::filter(is.na(entrez))  |> summarise(count = n() )
 # since annotables wasn't tons better, I'm going ot stick with bitr for this
 # Add the entrez Ids
 brg_res <- brg_res %>% left_join(gene.df, by = c('rowname' = 'SYMBOL'))
@@ -51,12 +51,12 @@ brg_res <- brg_res %>% left_join(gene.df, by = c('rowname' = 'SYMBOL'))
 # Some of these don't have ensembl or entrezids. This could be an annotation issue or a gene where not much is known (psuedogene) 
 # Remove these genes b/c we don't want to include them in downstream analysis. 
 # alternatively spend time trying to figure out a better or newer set of annotations, but in this case
-brg_res <- brg_res |> filter(!is.na(ENSEMBL) & !is.na(ENTREZID) ) 
+brg_res <- brg_res |> dplyr::filter(!is.na(ENSEMBL) & !is.na(ENTREZID) ) 
 # This make sure our 'universe is correct'
 
 # Identify significant up and downregulated genes  - These are useful for overrepresentation analysis
-brg1_up <- brg_res %>% filter(padj < 0.05, log2FoldChange > 1 ) # significant upregulated
-brg1_down <- brg_res %>% filter(padj < 0.05, log2FoldChange < -1) # significant downregulated
+brg1_up <- brg_res %>% dplyr::filter(padj < 0.05, log2FoldChange > 1 ) # significant upregulated
+brg1_down <- brg_res %>% dplyr::filter(padj < 0.05, log2FoldChange < -1) # significant downregulated
 
 # Create a rank ordered list of genes - These ranked lists are useful for Gene Set Enrichment analyssi
 brg1_res_ordered <- brg_res %>% arrange(desc(log2FoldChange))  
@@ -64,10 +64,12 @@ brg1_ol <- brg1_res_ordered$log2FoldChange
 brg1_ids <- brg1_res_ordered$log2FoldChange
 names(brg1_ol) <- brg1_res_ordered$rowname
 names(brg1_ids) <- brg1_res_ordered$ENTREZID
-
+head(brg1_ol)
+head(brg1_ids)
 # A few methods, (GSVA and SingScore) need full data (count/gene ranks)
 load('data/GSE102560_dds.Rda')# load dds
 dds <- DESeq(dds) # running this here so we get proper size factors etc 
+design(dds)
 dds_fix <- dds
 assay(dds_fix) <- limma::removeBatchEffect(assay(dds_fix), dds$rep)
 
@@ -104,7 +106,7 @@ kegg_up |> as.data.frame() |>
 
 # How to make them ordered in some more interesting way
 kegg_up |> as.data.frame() |> 
-  arrange(p.adjust) |> 
+  arrange(desc(p.adjust))  |> 
   mutate(Description = factor(Description, levels = Description) ) |>  
   # this is a little trick to arrange by something and then relevel the factor based on that arrangement
   ggplot(aes(x = -log10(qvalue), y = Description, size = Count)) + 
@@ -140,7 +142,7 @@ dotplot(brg_down_go)
 dotplot(simplify(x = brg_down_go, cutoff = 0.2)) # 0.7 is default, but I wanted to make a point
 
 # Can look at gene expression within categories using heatplot
-heatplot(brg_down_go, foldChange = brg1_ol)  #not terribly interesting since we limited to up or downregulated genes
+heatplot(brg_down_go, foldChange = brg1_ol, showCategory = 10)  #not terribly interesting since we limited to up or downregulated genes
 
 # lets try with all genes
 brg_all_go <- enrichGO(gene = c(brg1_up$ENTREZID, brg1_down$ENTREZID), 
@@ -155,7 +157,7 @@ heatplot(brg_all_go, foldChange = brg1_ol)
 
 #  You can also do overrepresentation with any arbitrary gene set
 # Here we'll get the msigdb data from the msigdbr package   
-msigdbr_df <- msigdbr(species = 'Homo sapiens') # this retrieves all the data sets
+msigdbr_df <- msigdbr::msigdbr(species = 'Homo sapiens') # this retrieves all the data sets
 msigdbr_species()
 length(unique(msigdbr_df$gs_name) ) # ~32,000 gene sets
 msigdbr_df |> head()
@@ -174,7 +176,7 @@ msigdbr_t2g %>% head()
 
 # I often like the hallmark data set, but I'm also filtering here so this runs a little faster, you could run this on the whole data frame
 # Let's run the above but just on the hallmark genes
-hallmark <- msigdbr_df %>% filter(gs_cat == 'H') 
+hallmark <- msigdbr_df %>% dplyr::filter(gs_cat == 'H') 
 hallmark_t2g <- hallmark %>% dplyr::select(gs_name, human_gene_symbol) %>% as.data.frame() 
 colnames(hallmark_t2g) <- c('TERM', 'GENE') 
 e_hall <- enricher(gene = c(brg1_down$rowname, brg1_up$rowname), TERM2GENE = hallmark_t2g )
@@ -208,10 +210,10 @@ ridgeplot(brg1_hallmark, fill = 'p.adjust', core_enrichment = T)
 ridgeplot(brg1_hallmark, fill = 'p.adjust', core_enrichment = F) 
 
 # We can extract a specific set of these genes
-hallmark_subset <- hallmark_t2g %>% filter(TERM == 'HALLMARK_TNFA_SIGNALING_VIA_NFKB') %>% pull(GENE)
+hallmark_subset <- hallmark_t2g %>% dplyr::filter(TERM == 'HALLMARK_TNFA_SIGNALING_VIA_NFKB') %>% pull(GENE)
 # and plot this subset as a volcano plot
 brg_res %>%
-   filter(rowname %in% hallmark_subset) %>%
+   dplyr::filter(rowname %in% hallmark_subset) %>%
    ggplot(aes(x =log2FoldChange, y = -log10(padj), color = padj < 0.05 )) + 
    geom_point() + 
    scale_color_manual(values = c('grey70', 'red2')) + 
@@ -264,9 +266,9 @@ brg_res <- read_csv('data/results_brg1.csv')
 brm_res <- read_csv('data/results_brm.csv')
 double_res <- read_csv('data/results_double.csv')
 
-brg_sig <- brg_res %>% filter(padj < 0.05) 
-brm_sig <- brm_res %>% filter(padj <0.05)
-double_sig <- double_res %>% filter(padj < 0.05)
+brg_sig <- brg_res %>% dplyr::filter(padj < 0.05) 
+brm_sig <- brm_res %>% dplyr::filter(padj <0.05)
+double_sig <- double_res %>% dplyr::filter(padj < 0.05)
 x <- list(brg=brg_sig$rowname, brm=brm_sig$rowname, double=double_sig$rowname)  # list of our gene names, 1 element for each data set
 head(x)
 # If you want separate colors for each, this works well
