@@ -90,8 +90,8 @@ iris
 
 
 ##### Practice Time# ######################################################################  
-ToothGrowth
 ?ToothGrowth
+ToothGrowth
 
 # How many observations for each supplement
 # How about observations for supplement + dose (# you can group_by on two or more things)
