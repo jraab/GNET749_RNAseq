@@ -14,4 +14,3 @@ taylor |>
   geom_point()
 
 pairs(taylor[,8:ncol(taylor)])
-      
