@@ -39,8 +39,11 @@ as.numeric(nih$funding) # why doesn't this work?
 # Need to remove the $ and , from the string - then as.numeric will work
 # I left this answer in here on purpose - str_replace lets you replace some portion of  string using a pattern 
 # see ?str_replace
+pattern <- '\\$' # this is a regex
+# regex can be made to match a wide range of things in a string, but can be hard to figure out
+# hint: chatgpt is good at giving you a valid regex 
 
-nih <- nih |> mutate(funding = str_replace(funding, '\\$', '') ) |> 
+nih <- nih |> mutate(funding = str_replace(funding, pattern, '') ) |> 
   mutate(funding = as.numeric(str_replace(funding, ',', '') ) )
 
 
