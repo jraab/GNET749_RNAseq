@@ -2,6 +2,7 @@
 # example data we have used in this class so far
 # Reminder: That data is located on longleaf at 
 # /proj/seq/data/RNAseq-training/reads/full/salmon
+# <GITHUB>data/salmon/<samplename>/quant.sf
 # You need to copy that salmon directory to your computer to run DESeq locally
 # Or using ondemand.rc.unc.edu
 
@@ -11,7 +12,7 @@ library(tidyverse)
 #install.packages('BiocManager') # This installs the function to use Bioconductor
 #BiocManager::install(c('DESeq2', 'tximport', 'tximeta', 'apeglm') ) # This installs DESEq and tximport
 library(DESeq2) # main package for differential expression
-library(tximport) # Helper functions for reading in count data 
+# Helper functions for reading in count data 
 library(tximeta)
 # Import design data
 design <- read_csv('data/class_data_info.csv') 
