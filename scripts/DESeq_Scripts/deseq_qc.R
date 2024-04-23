@@ -2,16 +2,16 @@
 # Purpose here is to take our count data and do some basic QC on it
 library(tidyverse)
 library(DESeq2)
-library(ComplexHeatmap)
+library(ComplexHeatmap) # bioconductor
 
 # Lets load our outuput from our DESeq results
 load('data/DE_output.Rda')
 # This will load two variables into our environment, des and res
 des <- estimateSizeFactors(des)
 # get the raw count data
-raw <- counts(des) 
-assays(des)$counts
+raw <- counts(des, normalize = F) 
 normalized <- counts(des, normalize = T)
+
 sample_info <- colData(des) |> as.data.frame() # gets the sample information from the summarized experiment
 sample_info
 
@@ -61,6 +61,7 @@ all_counts |>
    geom_col() + 
    coord_flip() + 
    facet_wrap(~method)
+
    
 # QC using PCA - samples should group by the condition(s) we are interested in
 # Let's do some QC on our input data (des) 
@@ -68,9 +69,10 @@ all_counts |>
 # by the expected grouping
 # First convert raw count data
 vst <- varianceStabilizingTransformation(des, blind = T)
-rlog <- rlog(des, blind = T)
+rlog_t <- rlog(des, blind = T)
 
 DESeq2::plotPCA(vst, intgroup = 'Group')
+DESeq2::plotPCA(rlog_t, intgroup = 'Group')
 # can return the underlying data for the plot with returnData=T
 DESeq2::plotPCA(vst, intgroup = 'Group', returnData = T)
 plotPCA(rlog, intgroup = 'Group') 
@@ -121,4 +123,4 @@ pc_plot |>
   ggplot(aes(x = PC1, y = PC2, color = group, shape = rep) ) + 
   geom_point(size = 3)
 
-# Note the batch effect by replicate - class 6 will discuss how to deal with this. 
+# Note the batch effect by replicate  

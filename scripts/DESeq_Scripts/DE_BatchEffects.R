@@ -15,13 +15,14 @@ swi_dds <- dds
 design(swi_dds)
 # make a second dds to correct 
 swi_dds_correct <- swi_dds
+colData(swi_dds_correct)$rep <- as.factor(colData(swi_dds_correct)$rep) 
 # condition of interest should always be last (so batch first)
 design(swi_dds_correct) <- formula(~rep + condition)
 # The last part of the formula is the condition that is being tested for 
 
 #Now use VST and PCA to look for batch effects
 vsd <- varianceStabilizingTransformation(dds, blind = T) 
-plotPCA(vsd) # looks like there is not perfect grouping
+#plotPCA(vsd) # looks like there is not perfect grouping
 
 # Let's replot and show replicate as shape
 pp <- plotPCA(vsd, intgroup = c('condition', 'rep'), returnData = T) 
@@ -32,7 +33,6 @@ pp %>%
 
 #Now its clear that there is a batch effect
 # Lets compare results accounting for batch and ignoring batch
-# DEseq with batch accounted for
 swi_dds
 cdata <- colData(swi_dds)
 cdata <- cdata |> as.data.frame() |> mutate(rep = as.factor(rep), 
@@ -40,10 +40,12 @@ cdata <- cdata |> as.data.frame() |> mutate(rep = as.factor(rep),
 
 colData(swi_dds)$rep <- as.factor(colData(swi_dds)$rep) 
 colData(swi_dds)
+# DEseq with batch accounted for
 
 design(swi_dds) <- formula( ~ rep + condition ) 
 design(swi_dds)
 swi_dds <- DESeq(swi_dds)
+
 # DESEq without batch accounted for
 swi_dds_uncorrected <- swi_dds
 design(swi_dds_uncorrected) <- formula(~ condition)
@@ -87,7 +89,8 @@ vsd$rep
 # This step alters the variance stabilized data to remove the batch effect using limma
 assay(vsd_batch_removed) <- limma::removeBatchEffect(assay(vsd_batch_removed), batch = vsd$rep) 
 # Now we can replot as before
-pbatch <- plotPCA(vsd_batch_removed, c('condition', 'rep'), returnData = T) 
+plotPCA(vsd_batch_removed, intgroup = 'condition')
+pbatch <- plotPCA(vsd_batch_removed, intgroup = c('condition', 'rep'), returnData = T) 
 pbatch |>
    ggplot(aes( x = PC1, y = PC2, color = condition, shape = rep)) + 
    geom_point(size = 3)
@@ -117,7 +120,7 @@ dat <- dat[idx,]
 # now we use sva on our count data, comparing the full and reduced model
 # We are asking sva to create new variables that preserve the effect of interest but remove others
 
-svobj <- sva::svaseq(dat, full, reduced, ) # we can ad the number of surrogate variables here as n.sv = , but I"m leaving it to sva to estimate
+svobj <- sva::svaseq(dat, full, reduced ) # we can ad the number of surrogate variables here as n.sv = , but I"m leaving it to sva to estimate
 svobj # this gave 2 surrogate variable
 svobj$sv # and a value for each of these, we can think of them as weights that can be added to DESeq2
 
@@ -142,7 +145,8 @@ assay(vsd_sva) <- limma::removeBatchEffect(assay(vsd_sva), covariates = svobj$sv
 plotPCA(vsd, intgroup = c('condition') ) 
 plotPCA(vsd_batch_removed, intgroup = 'condition') #using known batch
 plotPCA(vsd_sva, intgroup = 'condition')   # SVA batches
-
+   
+################################################################################
 # Does this method actually work - well lets permute the labels on our design matrix
 cdata
 cdata_permute <- cdata 
