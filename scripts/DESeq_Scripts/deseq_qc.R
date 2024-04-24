@@ -46,7 +46,8 @@ all_counts |>
  
 all_counts |> 
   ggplot(aes(x = log2(count), fill = method)) + 
-  geom_density()
+  geom_density(alpha = 0.5) + 
+  facet_wrap(~method , ncol = 1) 
 
 all_counts |> 
   ggplot(aes(x = log2(count+1), fill = method)) + 
@@ -71,11 +72,11 @@ all_counts |>
 vst <- varianceStabilizingTransformation(des, blind = T)
 rlog_t <- rlog(des, blind = T)
 
-DESeq2::plotPCA(vst, intgroup = 'Group')
+DESeq2::plotPCA(vst, intgroup = 'Group', ntop = 1000)
 DESeq2::plotPCA(rlog_t, intgroup = 'Group')
 # can return the underlying data for the plot with returnData=T
 DESeq2::plotPCA(vst, intgroup = 'Group', returnData = T)
-plotPCA(rlog, intgroup = 'Group') 
+DESeq2::plotPCA(rlog_t, intgroup = 'Group', ntop = 100) 
 # Not perfect, but there is some grouping
 
 ################################################################################
@@ -98,8 +99,7 @@ anno_df <- sample_df |> as.data.frame() |> dplyr::select(Sample, Group)
 #library(ComplexHeatmap)
 hm_anno <-  HeatmapAnnotation(df  = sample_df$Group, col = list(df =c('A' = 'goldenrod', 'B' = 'steelblue') ) )
 # Heatmap comes from ComplexHeatmap
-Heatmap(cor_samples, top_annotation = hm_anno) 
-
+ComplexHeatmap::Heatmap(cor_samples, top_annotation = hm_anno) 
 Heatmap(cor(cor_samples) ) 
 
 # A different data set - multiple groups and known replicates
