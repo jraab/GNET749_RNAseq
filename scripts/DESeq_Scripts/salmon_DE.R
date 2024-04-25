@@ -19,8 +19,8 @@ design <- read_csv('data/class_data_info.csv')
 design
 # This line creates a new column to keep track of where each Salmon output file is
 # file.path makes sticks the arguments together with / between them to make path names
-design$path <- file.path('data/salmon', paste0(design$Sample, '_decoy_quant'), 'quant.sf')
-design 
+design$files <- file.path('data/salmon', paste0(design$Sample, '_decoy_quant'), 'quant.sf')
+design$names <- design$Sample
 
 
 # Import Salmon quant files

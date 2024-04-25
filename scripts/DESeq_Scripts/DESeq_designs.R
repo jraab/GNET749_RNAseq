@@ -3,7 +3,6 @@
 library(DESeq2)
 library(limma)
 library(sva)
-library(tximport)
 library(tidyverse)
 library(ComplexHeatmap)
 
@@ -12,10 +11,9 @@ library(ComplexHeatmap)
 # we have  knockdown experiments of two different proteins, both proteins together, or a control
 load('data/GSE102560_dds.Rda')
 
-
 # Here is our data converted to a DESeq Dataset
 dds$condition
-dds$condition <- relevel(dds$condition, 'NS')  
+
 
 
 # We can perform a normal Wald test using DESEq as we usually would
@@ -28,7 +26,14 @@ res_brg <- results(dds, contrast = c('condition', 'Brg1', 'NS') ) # contrast tak
 res_brm <- results(dds, contrast = c('condition', 'Brm', 'NS') ) 
 res_double <- results(dds, contrast = c('condition', 'Double', 'NS') ) 
 
+plotCounts(dds, gene = 'CA4', intgroup = 'condition')
+
 # apeglm requires use of coef, so use resultsNames(dds) to get the right coef number
+#need to relevel to get these correctly
+dds$condition <- relevel(dds$condition, 'NS')  
+dds$condition
+dds <- nbinomWaldTest(dds)
+resultsNames(dds)
 res_brg <- lfcShrink(dds, coef = 2, res= res_brg, type = 'apeglm')
 res_brm <- lfcShrink(dds, coef = 3, res= res_brm, type = 'apeglm')
 res_double <- lfcShrink(dds, coef = 4, res= res_double, type = 'apeglm')
@@ -38,21 +43,10 @@ write_csv(as.data.frame(res_brg) |> rownames_to_column() , file = 'data/results_
 write_csv(as.data.frame(res_brm) %>% rownames_to_column(), file = 'data/results_brm.csv')
 write_csv(as.data.frame(res_double) %>% rownames_to_column(), file = 'data/results_double.csv') 
 
-#what if we wanted to compare the two single mutants -
-res_brg_vs_brm <- lfcShrink(dds, contrast = c('condition', 'Brg1', 'Brm'), type = 'ashr' ) 
-# that works the same way - specifying which groups we wish to compare
-# NOTE: must use ashr or normal here rather than apeglm, which onlyh takes a coef argument
-
-
 # what if we don't want to compare things pair-wise, this is where its a bit more complicated
 # lets say we want to know if there is a difference between one group and the average of the others. 
-# We need to rerun our DESeq analysis with one additional argument 
-# betaPrior = T reverts DESeq to how a prior version worked and gives us access to 
-# the average value for multiple groups. An alternative approach is to change the design matrix 
-# to ~ 0 + condition (forcing the intercept to be 0). See the DESeq vignette for more info
-dds_beta <- DESeq(dds, betaPrior = T) 
-dds_beta
-# Now we can see that there is a coefficient for each condition rather than for the comparison
+
+ Now we can see that there is a coefficient for each condition rather than for the comparison
 resultsNames(dds_beta)
 # We can then compare the numerator of interest (Brg1) to the average of the remaining conditions. 
 # listValues() lets you specify what value you will multiply each coefficent by
@@ -72,15 +66,18 @@ counts <- assay(dds_beta)[rownames(dds_beta) %in% top_50$rowname, ]
 counts <- t(scale(t(counts), center = T, scale =T))
 Heatmap(counts)
 
+# LRT Test to find genes where the additional term adds something to the model
 # An alternative with this sort of design is to use the liklihood ratio test
 # Using the LRT version of this to identify any genes with changes
+design(dds)
 dds_lrt <- DESeq(dds, test = 'LRT', full = ~condition, reduced = ~1)
 # p-values here mean is there a difference between a model that contains our 'condition' and one without that
 # But we can extract specific logFoldChanges as before
 # but p-values will always be the same ( difference between full model and reduced)
 resultsNames(dds_lrt)
-res_lrt_brg <- lfcShrink(dds_lrt, contrast = c('condition', 'Brg1', 'NS'), type = 'ashr' ) 
-res_lrt_brm <- lfcShrink(dds_lrt, contrast = c('condition', 'Brm', 'NS'), type = 'ashr' ) 
+res_lrt_brg <- lfcShrink(dds_lrt, coef = 2, type = 'apeglm')
+res_lrt_brm <- lfcShrink(dds_lrt, coef = 3, type = 'apeglm')
+res_lrt_brg
 # fold changes differ
 plot(res_lrt_brg$log2FoldChange, res_lrt_brm$log2FoldChange)
 # but pvalues are the same
@@ -98,7 +95,9 @@ es_dds <- dds
 es_dds <- DESeq(es_dds)
 design(es_dds)
 # controlling for treatment, does genotype have an effect
-res_genotype <- lfcShrink(es_dds, contrast = c('genotype', 'ARID2', 'WT'), type = 'ashr' )  
+resultsNames(es_dds)
+res_genotype <- lfcShrink(es_dds, coef = 2, type = 'apeglm' )  
+
 summary(res_genotype)
 res_genotype %>%
    as.data.frame() %>%
@@ -112,18 +111,18 @@ df %>%
 # controlling for genotype, does treatment have an effect
 
 # Since we have multiple genotype and treatments, and LRT test might be better 
-dds_treat <- DESeq(dds, test = 'LRT', full = ~ genotype + treat, reduced = ~genotype) 
+design(es_dds) <- formula(~genotype + treat+genotype:treat)
+dds_treat <- DESeq(es_dds, test = 'LRT', full = ~ genotype + treat + genotype:treat, reduced = ~genotype + treat) 
 resultsNames(dds_treat)
-res_treat <- lfcShrink(dds_treat, contrast= c('treat', 'EB', 'ES'), type = 'ashr' )
+res_treat <- results(dds_treat, contrast= c('treat', 'EB', 'ES') )
 res_treat
 summary(res_treat)
-# This will give us p-values for genes that have a treatment effect
+# This will give us p-values for genes that have an interaction effect
 
-res_genotype2 <- lfcShrink(dds_treat, contrast = c('genotype' , 'ARID2', 'WT'), type = 'ashr') 
+res_genotype2 <- results(dds_treat, contrast = c('genotype' , 'ARID2', 'WT')) 
 res_genotype2 
-# this will STILL give us p-values for the treatment effect, but we can extract the logfoldchangesr for arid2 vs wt
-
-
+summary(res_genotype2)
+# this will STILL give us p-values for the interaction effect, but we can extract the logfoldchangesr for arid2 vs wt
 summary(res_treat)
 table(res_treat$padj == res_genotype2$padj) 
 
@@ -133,11 +132,11 @@ res_treat %>%
    arrange(padj) %>%
    head(20)
 
-df <- plotCounts(dds, gene = 'Olfr1459', intgroup = c('genotype', 'treat' ), returnData = T)
+df <- plotCounts(dds, gene = 'Cited1', intgroup = c('genotype', 'treat' ), returnData = T)
 df %>% 
    ggplot(aes(x = treat, y = log2(count), color = genotype) ) + geom_point(position = position_dodge(0.5))
 
-# Is there an effect that differs by genotype
+# Is there an effect that differs by genotype 
 dds_interaction <- dds
 design(dds_interaction) <- formula(~treat + genotype + treat:genotype)
 dds_interaction <- DESeq(dds_interaction, test = 'LRT', 
