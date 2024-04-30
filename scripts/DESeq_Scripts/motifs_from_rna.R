@@ -1,6 +1,6 @@
 ################################################################################
 #further downstream - motifs
-# see memems package
+# see memes package
 # https://snystrom.github.io/memes-manual/
 library(BSgenome.Hsapiens.UCSC.hg38)
 #BiocManager::install('BSgenome.Hsapiens.UCSC.hg38')
@@ -17,7 +17,7 @@ res_baf <- lfcShrink(des, coef = 3, type = 'apeglm', format = 'GRanges', saveCol
   keepStandardChromosomes(pruning.mode = 'coarse')
 # need the above calls to remove scaffold and patch chromosomes so style can be changed below
 seqlevelsStyle(res_baf) <- 'UCSC'
-
+res_baf
 
 # get the promoters of upregulated genes
 # this makes use of some tidygenomics framework - library(plyranges)
@@ -28,9 +28,11 @@ downreg <- res_baf |> filter(padj < 0.05) |> filter(log2FoldChange < 0)
 upreg_prom <- promoters(upreg, upstream = 200, downstream = 1000)
 downreg_prom <- promoters(downreg, upstream = 200, downstream = 1000)
 hg38 <- BSgenome.Hsapiens.UCSC.hg38
+
 up_sequences <- get_sequence(upreg_prom, genome = hg38)
 down_sequences <- get_sequence(downreg_prom, genome = hg38)
 up_sequences |> head()
+check_meme_install()
 #discover motifs
 streme_results <- runStreme(up_sequences, control = 'shuffle')
 # match to known motifs
@@ -44,7 +46,7 @@ streme_results |>
 by_group <- list(up = up_sequences, down = down_sequences)
 names(by_group)
 
-compare <- runStreme(by_group, control = 'shuffle')
+compare <- runStreme(by_group, control = 'shuffle', meme_path = )
 # match to motifs
 meme_db <- read_meme("~/proj/motif_databases/HUMAN/HOCOMOCOv11_core_HUMAN_mono_meme_format.meme") |> 
   to_df() |> 
@@ -53,7 +55,12 @@ meme_db <- read_meme("~/proj/motif_databases/HUMAN/HOCOMOCOv11_core_HUMAN_mono_m
 
 #above is spencer's fix for that one issue
 compare <- compare |> runTomTom(database = meme_db)
-ame_by_group <- runAme(by_group, database = meme_db)
+ame_by_group <- runAme(by_group, database = meme_db, )
+
+
+res_baf |> as.data.frame() |> 
+  filter(padj < 0.05) |> 
+  dplyr::select(gene_name, log2FoldChange, padj)
 
 ame_by_group |> bind_rows(.id = 'direction') |> plot_ame_heatmap(group = direction, value = 'normalize')
 
