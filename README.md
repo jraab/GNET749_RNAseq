@@ -1,4 +1,4 @@
-# GNET749_RNAseq
+# GNET749 RNAseq Module
 
 Code for GNET/PHCO749 RNA-seq class
 
