@@ -6,16 +6,16 @@ Code for GNET/PHCO749 RNA-seq class
 
 - data contains data we will use in class for excercises
 
-**Spring 2023 Schedule**
+**Spring 2025 Schedule**
 
 Date | Topic
 --- | ---
-2024-04-15 | Github  <br/> R/Rstudio installation  <br/> R syntax  <br/> Getting and transforming data
-2024-04-17 |  Plotting <br/> Exploratory data analysis 
-2024-04-19 | Fucnctions <br/> Coding best practices/scripts
-2024-04-22 | RNAseq analysis
-2024-04-24 | Contrasts & Batch Effects 
-2024-04-26 | Visualization/QC / Enrichment 
+2024-04-11 | Github  <br/> R/Rstudio installation  <br/> R syntax  <br/> Getting and transforming data
+2024-04-14 |  Plotting <br/> Exploratory data analysis 
+2024-04-16 | Fucnctions <br/> Coding best practices/scripts
+2024-04-23 | RNAseq analysis
+2024-04-25 | Contrasts & Batch Effects 
+2024-04-28 | Visualization/QC / Enrichment / Extra Help
 
 
 **Additional Resources**
