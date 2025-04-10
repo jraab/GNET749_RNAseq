@@ -15,10 +15,7 @@ airlines
 # Which airline had the most flights depart from each airport?
 
 # Check out the slice function ( slice_head() ) to get the top 3
-flights |> 
-  group_by(carrier, origin) |> 
-  count() |> 
-  arrange(desc(n) )
+
 
 # Plot the top 3 carriers
 
