@@ -71,3 +71,5 @@ drug_data |>
   ggplot(aes(x = treatment, y = log2(counts))) + 
   geom_point()
 
+
+
