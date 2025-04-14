@@ -1,4 +1,3 @@
-
 .DS_Store
 .Rproj.user
 .Rdata
@@ -10,4 +9,4 @@
 .Rhistory
 .Rhistory
 *_myscripts.R
-
+.Rproj*
