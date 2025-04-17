@@ -15,12 +15,9 @@ airlines
 # Which airline had the most flights depart from each airport?
 
 # Check out the slice function ( slice_head() ) to get the top 3
-flights |> 
-  group_by(carrier, origin) |> 
-  count() |> 
-  arrange(desc(n) )
 
-# Plot the top 3 carriers
+
+# Plot the top 3 carriers by number of flights
 
 
 
@@ -56,7 +53,7 @@ flights |>
 # read in the following files - you may need to change the path if they are somewhere else on your system 
 
 count_file <- 'data/drug_norm_counts.csv'
-samples_file <- 'data/drug_samples.csv')
+samples_file <- 'data/drug_samples.csv'
 
 
 # counts long form

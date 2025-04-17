@@ -73,9 +73,7 @@ colnames(iris) # here are the names of our columns - we'll use these to plot
 #jitter the points
 
 # Aggregate some data so we have speices averages
-iris_summary <- iris |> group_by(Species) |> 
-  summarise (mean_sepal_width= mean(Sepal.Width), 
-             sd_sepal_width = sd(Sepal.Width) ) 
+
 
 #Make a barplot
  
@@ -136,7 +134,7 @@ planes
 #Class exercise time
 # Importing Data
 # Data sets from sports-reference.com
-# see clean_duke_unc.R to see how I merged the data and cleaned it u  p
+# see clean_duke_unc.R to see how I merged the data and cleaned it up
 
 #Use geom_density to plot which team has a better win distribution
 
@@ -154,6 +152,19 @@ planes
 
 # if one is NA - gets removed; hhow to deal
 # Lets make up a number, 26 and put all unranked there
+
+
+# palmerpenguins
+library(palmerpenguins)
+penguins
+
+# avergare flipper_length_mm by species
+
+# average flipper_length_mm by speices, island, sex
+
+# body_mass_g over time
+
+# plot boxplots of body_mass_g by sex and by island
 
 
 

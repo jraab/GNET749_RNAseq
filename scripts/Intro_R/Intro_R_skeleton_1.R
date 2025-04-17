@@ -16,33 +16,28 @@ library(tidyverse)
 #variable #assignment #value
  # integer
  # vector
-a
-b
+
       #character
 # adding
-a + b 
-# reassignment
-a <- 3
-a
 
-a + b
+# reassignment
+
+
+
+
 #multiplying
-a * b
+
 
 # Lists and vectors 
-l <- c('histones', 'are', 'cool')
-m <- list('histones','are', 'cool')
-l
-vals <- c( 5, 3, 9, 7) 
-vals
-sort(vals)
+
+
+#sort
 
 # Start with a built in dataset
 # R has tons of built in datasets 
 library(help = 'datasets')
-iris
-iris <- as_tibble(iris)
-iris
+
+# load iris
 
 #column names
 
