@@ -2,10 +2,5 @@
 .DS_Store
 .Rproj.user
 .Rdata
-.Rhistory*
 .Rhistory
-.Rhistory
-.Rhistory
-.Rhistory
-.Rhistory
-.Rhistory
+*.Rpoj
