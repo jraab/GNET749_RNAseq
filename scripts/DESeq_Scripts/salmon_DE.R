@@ -6,6 +6,8 @@
 # You need to copy that salmon directory to your computer to run DESeq locally
 # Or using ondemand.rc.unc.edu
 
+
+
 # As always, start by loading needed libraries
 library(tidyverse) 
 # If you need to install DESeq or tximport use bioconductor
@@ -21,7 +23,7 @@ design
 # file.path makes sticks the arguments together with / between them to make path names
 design$files <- file.path('data/salmon', paste0(design$Sample, '_decoy_quant'), 'quant.sf')
 design$names <- design$Sample
-
+design
 
 # Import Salmon quant files
 txi <- tximeta(coldata = design, type = 'salmon')
@@ -43,15 +45,22 @@ assays(dds)$avgTxLength
 # is very easy if you have a simple experimental design and analysis approach
 ###############################################################################
 des <- DESeq(dds) # This runs all the DESeq steps
+mcols(des) # note other columns from this object we may want
+resultsNames(des)# what comparisons are available
 res <- results(des, format = 'GRanges', saveCols=2) # this returns a DESeq results object
-summary(res)
-
+res
+seqlevelsStyle(res) <- 'UCSC'
+res
+res |> as_tibble() |> ggplot( aes(x = log2(baseMean), y = log2FoldChange, color = padj < 0.5)) + geom_point()
 ################################################################################
-# In General: I suggest shrinking logfold change  to lower the impact of high variablity genes
-resultsNames(des) # what comparisons are available
+# In General: I suggest shrinking logfold change  to lower the impact of high variability genes
 shrunk <- lfcShrink(des, coef = 2, type = 'ape', format = 'GRanges', saveCols =2 )
+seqlevelsStyle(shrunk) <- 'UCSC'
+shrunk |> as_tibble() |> ggplot( aes(x = log2(baseMean), y = log2FoldChange, color = padj < 0.5)) + geom_point()
+
 table(shrunk$padj <0.05, shrunk$log2FoldChange > 0)
 table(res$padj < 0.05, res$log2FoldChange > 0)
+
 
 ################################################################################
 # At this point you have a data frame with all your results - you can simply filter
