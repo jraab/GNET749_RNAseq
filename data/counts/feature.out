@@ -1,0 +1,124 @@
+
+        ==========     _____ _    _ ____  _____  ______          _____  
+        =====         / ____| |  | |  _ \|  __ \|  ____|   /\   |  __ \ 
+          =====      | (___ | |  | | |_) | |__) | |__     /  \  | |  | |
+            ====      \___ \| |  | |  _ <|  _  /|  __|   / /\ \ | |  | |
+              ====    ____) | |__| | |_) | | \ \| |____ / ____ \| |__| |
+        ==========   |_____/ \____/|____/|_|  \_\______/_/    \_\_____/
+	  v1.5.2
+
+//========================== featureCounts setting ===========================\\
+||                                                                            ||
+||             Input files : 10 BAM files                                     ||
+||                           P ../Gm10847_full.bam                            ||
+||                           P ../Gm12752_full.bam                            ||
+||                           P ../Gm12801_full.bam                            ||
+||                           P ../Gm12818_full.bam                            ||
+||                           P ../Gm12864_full.bam                            ||
+||                           P ../Gm10851_full.bam                            ||
+||                           P ../Gm12753_full.bam                            ||
+||                           P ../Gm12802_full.bam                            ||
+||                           P ../Gm12832_full.bam                            ||
+||                           P ../Gm12877_full.bam                            ||
+||                                                                            ||
+||             Output file : count_w_annot.txt                                ||
+||                 Summary : count_w_annot.txt.summary                        ||
+||              Annotation : /proj/seq/data/GRCh38_NCBI/Annotation/Genes/ ... ||
+||      Dir for temp files : ./                                               ||
+||                                                                            ||
+||                 Threads : 4                                                ||
+||                   Level : meta-feature level                               ||
+||              Paired-end : yes                                              ||
+||         Strand specific : reversely stranded                               ||
+||      Multimapping reads : not counted                                      ||
+|| Multi-overlapping reads : not counted                                      ||
+||   Min overlapping bases : 1                                                ||
+||                                                                            ||
+||          Chimeric reads : counted                                          ||
+||        Both ends mapped : not required                                     ||
+||                                                                            ||
+\\===================== http://subread.sourceforge.net/ ======================//
+
+//================================= Running ==================================\\
+||                                                                            ||
+|| Load annotation file /proj/seq/data/GRCh38_NCBI/Annotation/Genes/genes ... ||
+||    Features : 1031317                                                      ||
+||    Meta-features : 33121                                                   ||
+||    Chromosomes/contigs : 282                                               ||
+||                                                                            ||
+|| Process BAM file ../Gm10847_full.bam...                                    ||
+||    Paired-end reads are included.                                          ||
+||    Assign fragments (read pairs) to features...                            ||
+||    Total fragments : 9196613                                               ||
+||    Successfully assigned fragments : 5667778 (61.6%)                       ||
+||    Running time : 0.22 minutes                                             ||
+||                                                                            ||
+|| Process BAM file ../Gm12752_full.bam...                                    ||
+||    Paired-end reads are included.                                          ||
+||    Assign fragments (read pairs) to features...                            ||
+||    Total fragments : 12620642                                              ||
+||    Successfully assigned fragments : 7017294 (55.6%)                       ||
+||    Running time : 0.29 minutes                                             ||
+||                                                                            ||
+|| Process BAM file ../Gm12801_full.bam...                                    ||
+||    Paired-end reads are included.                                          ||
+||    Assign fragments (read pairs) to features...                            ||
+||    Total fragments : 9625002                                               ||
+||    Successfully assigned fragments : 5542690 (57.6%)                       ||
+||    Running time : 0.22 minutes                                             ||
+||                                                                            ||
+|| Process BAM file ../Gm12818_full.bam...                                    ||
+||    Paired-end reads are included.                                          ||
+||    Assign fragments (read pairs) to features...                            ||
+||    Total fragments : 10673649                                              ||
+||    Successfully assigned fragments : 7034275 (65.9%)                       ||
+||    Running time : 0.25 minutes                                             ||
+||                                                                            ||
+|| Process BAM file ../Gm12864_full.bam...                                    ||
+||    Paired-end reads are included.                                          ||
+||    Assign fragments (read pairs) to features...                            ||
+||    Total fragments : 9173191                                               ||
+||    Successfully assigned fragments : 5871743 (64.0%)                       ||
+||    Running time : 0.23 minutes                                             ||
+||                                                                            ||
+|| Process BAM file ../Gm10851_full.bam...                                    ||
+||    Paired-end reads are included.                                          ||
+||    Assign fragments (read pairs) to features...                            ||
+||    Total fragments : 7582082                                               ||
+||    Successfully assigned fragments : 4862268 (64.1%)                       ||
+||    Running time : 0.19 minutes                                             ||
+||                                                                            ||
+|| Process BAM file ../Gm12753_full.bam...                                    ||
+||    Paired-end reads are included.                                          ||
+||    Assign fragments (read pairs) to features...                            ||
+||    Total fragments : 16178601                                              ||
+||    Successfully assigned fragments : 10053309 (62.1%)                      ||
+||    Running time : 0.39 minutes                                             ||
+||                                                                            ||
+|| Process BAM file ../Gm12802_full.bam...                                    ||
+||    Paired-end reads are included.                                          ||
+||    Assign fragments (read pairs) to features...                            ||
+||    Total fragments : 12964710                                              ||
+||    Successfully assigned fragments : 8227247 (63.5%)                       ||
+||    Running time : 0.31 minutes                                             ||
+||                                                                            ||
+|| Process BAM file ../Gm12832_full.bam...                                    ||
+||    Paired-end reads are included.                                          ||
+||    Assign fragments (read pairs) to features...                            ||
+||    Total fragments : 11304787                                              ||
+||    Successfully assigned fragments : 7631617 (67.5%)                       ||
+||    Running time : 0.27 minutes                                             ||
+||                                                                            ||
+|| Process BAM file ../Gm12877_full.bam...                                    ||
+||    Paired-end reads are included.                                          ||
+||    Assign fragments (read pairs) to features...                            ||
+||    Total fragments : 8857805                                               ||
+||    Successfully assigned fragments : 5705096 (64.4%)                       ||
+||    Running time : 0.21 minutes                                             ||
+||                                                                            ||
+||                         Read assignment finished.                          ||
+||                                                                            ||
+|| Summary of counting results can be found in file "count_w_annot.txt"       ||
+||                                                                            ||
+\\===================== http://subread.sourceforge.net/ ======================//
+

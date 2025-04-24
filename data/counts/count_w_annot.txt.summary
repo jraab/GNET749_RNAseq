@@ -1,0 +1,12 @@
+Status	../Gm10847_full.bam	../Gm12752_full.bam	../Gm12801_full.bam	../Gm12818_full.bam	../Gm12864_full.bam	../Gm10851_full.bam	../Gm12753_full.bam	../Gm12802_full.bam	../Gm12832_full.bam	../Gm12877_full.bam
+Assigned	5667778	7017294	5542690	7034275	5871743	4862268	10053309	8227247	7631617	5705096
+Unassigned_Ambiguity	103951	102323	88030	111075	121776	99525	154324	122239	126622	104406
+Unassigned_MultiMapping	0	0	0	0	0	0	0	0	0	0
+Unassigned_NoFeatures	3046715	4526570	3454986	3201000	2879775	2360333	5308100	4310875	3159586	2715009
+Unassigned_Unmapped	378169	974455	539296	327299	299897	259956	662868	304349	386962	333294
+Unassigned_MappingQuality	0	0	0	0	0	0	0	0	0	0
+Unassigned_FragmentLength	0	0	0	0	0	0	0	0	0	0
+Unassigned_Chimera	0	0	0	0	0	0	0	0	0	0
+Unassigned_Secondary	0	0	0	0	0	0	0	0	0	0
+Unassigned_Nonjunction	0	0	0	0	0	0	0	0	0	0
+Unassigned_Duplicate	0	0	0	0	0	0	0	0	0	0
