@@ -10,13 +10,11 @@ Code for GNET/PHCO749 RNA-seq class
 
 Date | Topic
 --- | ---
-2025-04-11 | Github  <br/> R/Rstudio installation  <br/> R syntax  <br/> Getting and transforming data 
-2025-04-14 |  Plotting <br/> Exploratory data analysis 
-2025-04-16 | Fucnctions <br/> Coding best practices/scripts
-2025-04-23 | RNAseq analysis
-2025-04-25 | Contrasts & Batch Effects 
-2025-04-28 | Visualization/QC / Enrichment / Extra Help
-
+2026-04-17 | Github  <br/> R/Rstudio installation  <br/> R syntax  <br/> Getting and transforming data 
+2025-04-20 |  Plotting <br/> Exploratory data analysis 
+2025-04-22 | Fucnctions <br/> Coding best practices/scripts
+2025-04-24 | RNAseq analysis
+2025-04-27 | Contrasts & Batch Effects 
 
 **Additional Resources**
 
