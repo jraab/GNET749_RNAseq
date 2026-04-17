@@ -1,0 +1,22 @@
+{
+    "read_files": "[ F8_tsc_HU_g5_dox_RNA_S3_R1_001.fastq ]",
+    "expected_format": "SR",
+    "compatible_fragment_ratio": 1.0,
+    "num_compatible_fragments": 5136417,
+    "num_assigned_fragments": 5136417,
+    "num_frags_with_concordant_consistent_mappings": 5136197,
+    "num_frags_with_inconsistent_or_orphan_mappings": 392,
+    "strand_mapping_bias": 0.00007631523565541257,
+    "MSF": 0,
+    "OSF": 0,
+    "ISF": 0,
+    "MSR": 0,
+    "OSR": 0,
+    "ISR": 0,
+    "SF": 392,
+    "SR": 5136197,
+    "MU": 0,
+    "OU": 0,
+    "IU": 0,
+    "U": 0
+}

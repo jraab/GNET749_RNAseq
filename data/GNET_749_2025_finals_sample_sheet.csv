@@ -1,0 +1,9 @@
+R1,R2,SampleNumber,SampleID,Cell Line,Treatment,Replicate
+F14_tsc_HU_g1_3_nodox_RNA_S24_R1_001.fastq,,1,M1,TSC,NoDox,1
+F18_tsc_HU_g5_nodox_r1_RNA_S13_R1_001.fastq,,2,M2,TSC,NoDox,2
+F18_tsc_HU_g5_nodox_r2_RNA_S17_R1_001.fastq,,3,M3,TSC,NoDox,3
+F8_tsc_HU_g5_nd_RNA_S4_R1_001.fastq,,4,M4,TSC,NoDox,4
+F14_tsc_HU_g1_3_Dox_RNA_S23_R1_001.fastq,,5,M5,TSC,Dox,1
+F18_tsc_HU_g5_Dox_r1_RNA_S14_R1_001.fastq,,6,M6,TSC,Dox,2
+F18_tsc_HU_g5_Dox_r2_RNA_S18_R1_001.fastq,,7,M7,TSC,Dox,3
+F8_tsc_HU_g5_dox_RNA_S3_R1_001.fastq ,,8,M8,TSC,Dox,4

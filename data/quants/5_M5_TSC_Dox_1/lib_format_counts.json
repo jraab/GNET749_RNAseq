@@ -1,0 +1,22 @@
+{
+    "read_files": "[ F14_tsc_HU_g1_3_Dox_RNA_S23_R1_001.fastq ]",
+    "expected_format": "SR",
+    "compatible_fragment_ratio": 1.0,
+    "num_compatible_fragments": 10680242,
+    "num_assigned_fragments": 10680242,
+    "num_frags_with_concordant_consistent_mappings": 10680008,
+    "num_frags_with_inconsistent_or_orphan_mappings": 432,
+    "strand_mapping_bias": 0.00004044777181464434,
+    "MSF": 0,
+    "OSF": 0,
+    "ISF": 0,
+    "MSR": 0,
+    "OSR": 0,
+    "ISR": 0,
+    "SF": 432,
+    "SR": 10680008,
+    "MU": 0,
+    "OU": 0,
+    "IU": 0,
+    "U": 0
+}

@@ -1,0 +1,12 @@
+{
+    "salmon_version": "1.10.0",
+    "index": "default",
+    "libType": "A",
+    "gcBias": [],
+    "seqBias": [],
+    "posBias": [],
+    "unmatedReads": "F8_tsc_HU_g5_dox_RNA_S3_R1_001.fastq",
+    "threads": "8",
+    "output": "8_M8_TSC_Dox_4",
+    "auxDir": "aux_info"
+}

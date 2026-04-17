@@ -17,12 +17,10 @@ library(tidyverse)
  # integer
  # vector
 
-      #character
+ #character
 # adding
 
 # reassignment
-
-
 
 
 #multiplying
@@ -60,6 +58,10 @@ library(help = 'datasets')
 
 
 #How to access the first and third column
+
+# accessing variables
+
+
 
 
 ## How to work with tables of data 

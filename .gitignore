@@ -2,4 +2,8 @@
 .Rproj.user
 .Rdata
 .Rhistory
-*.Rpoj
+*.Rproj
+class_final_answers.R
+class_final_answsers_noshrink.tsv
+class_final_answers_shrink.tsv
+class_final_answsers_shrink.tsv
